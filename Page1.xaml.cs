@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using System.Xml.Linq;
-using Genetic;
 using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
 using Newtonsoft.Json;

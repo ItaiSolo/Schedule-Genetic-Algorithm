@@ -3,7 +3,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using Genetic;
 using WpfApp.MVM.View;
 
 namespace WpfApp
@@ -70,7 +69,7 @@ namespace WpfApp
             Dispatcher.Invoke(() =>
             {
                 Generation = scheduleResult.GetAt(0).Generations;
-                Fitness = scheduleResult.GetAt(0).Fitness;
+                Fitness = Math.Round(scheduleResult.GetAt(0).Fitness,4);
                 Conflicts = scheduleResult.GetAt(0).Conflicts;
 
                 ConflictsValue.Text = Conflicts.ToString();

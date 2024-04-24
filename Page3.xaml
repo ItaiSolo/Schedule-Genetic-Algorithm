@@ -103,9 +103,9 @@
 
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Margin="179,17,0,3" Background="AliceBlue" Width="353" Height="20" HorizontalAlignment="Left" Orientation="Horizontal">
+        <StackPanel Grid.Row="3" Margin="179,17,0,3" Background="AliceBlue" Width="353" HorizontalAlignment="Left" Orientation="Horizontal">
             <TextBlock x:Name="CurrentDate" Text=" Date Created: " FontWeight="Bold" FontSize="14" Width="100" Height="20" VerticalAlignment="Bottom"/>
-            <Label x:Name="CurrentDateLabel" Width="223" FontSize="16" Height="26" FontWeight="Bold" VerticalAlignment="Bottom" />
+            <Label x:Name="CurrentDateLabel" Width="223" FontSize="16" Height="30" FontWeight="Bold" VerticalAlignment="Bottom" />
 
         </StackPanel>
     </Grid>

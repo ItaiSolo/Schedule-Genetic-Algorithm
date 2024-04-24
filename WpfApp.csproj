@@ -133,6 +133,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Algorithm\Classrooms.cs" />
+    <Compile Include="Algorithm\Courses.cs" />
+    <Compile Include="Algorithm\Data.cs" />
+    <Compile Include="Algorithm\DateRange.cs" />
+    <Compile Include="Algorithm\GeneticAlgo.cs" />
+    <Compile Include="Algorithm\MainProgram.cs" />
+    <Compile Include="Algorithm\MyList.cs" />
+    <Compile Include="Algorithm\Population.cs" />
+    <Compile Include="Algorithm\ScheduleResult.cs" />
+    <Compile Include="Algorithm\Schedules.cs" />
+    <Compile Include="Algorithm\Teachers.cs" />
+    <Compile Include="Algorithm\TimeCube.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
