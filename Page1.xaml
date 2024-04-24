@@ -103,8 +103,7 @@
                             Orientation="Vertical"
                             Margin="273,35,273,0">
 
-                    <Image Source="Images\schedule.png"
-                           Width="220" Height="150" VerticalAlignment="Top"/>
+                    <Image  Source="/Images/schedule.png" Width="220" Height="150" VerticalAlignment="Top"/>
 
 
 

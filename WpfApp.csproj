@@ -51,7 +51,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>schedule1.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
@@ -133,18 +134,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Algorithm\Classrooms.cs" />
-    <Compile Include="Algorithm\Courses.cs" />
-    <Compile Include="Algorithm\Data.cs" />
-    <Compile Include="Algorithm\DateRange.cs" />
-    <Compile Include="Algorithm\GeneticAlgo.cs" />
-    <Compile Include="Algorithm\MainProgram.cs" />
-    <Compile Include="Algorithm\MyList.cs" />
-    <Compile Include="Algorithm\Population.cs" />
-    <Compile Include="Algorithm\ScheduleResult.cs" />
-    <Compile Include="Algorithm\Schedules.cs" />
-    <Compile Include="Algorithm\Teachers.cs" />
-    <Compile Include="Algorithm\TimeCube.cs" />
+    <Compile Include="MVM\Model\Algorithm\Classrooms.cs" />
+    <Compile Include="MVM\Model\Algorithm\Courses.cs" />
+    <Compile Include="MVM\Model\Algorithm\Data.cs" />
+    <Compile Include="MVM\Model\Algorithm\DateRange.cs" />
+    <Compile Include="MVM\Model\Algorithm\GeneticAlgo.cs" />
+    <Compile Include="MVM\Model\Algorithm\MainProgram.cs" />
+    <Compile Include="MVM\Model\Algorithm\MyList.cs" />
+    <Compile Include="MVM\Model\Algorithm\Population.cs" />
+    <Compile Include="MVM\Model\Algorithm\ScheduleResult.cs" />
+    <Compile Include="MVM\Model\Algorithm\Schedules.cs" />
+    <Compile Include="MVM\Model\Algorithm\Teachers.cs" />
+    <Compile Include="MVM\Model\Algorithm\TimeCube.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -156,8 +157,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MVM\View\HomeView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Page1.xaml">
       <SubType>Designer</SubType>
@@ -233,22 +234,12 @@
   <ItemGroup>
     <Folder Include="Fonts\" />
     <Folder Include="MVM\ModelView\" />
-    <Folder Include="MVM\Model\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\user.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Genetic\Genetic.csproj">
-      <Project>{06606f85-a37a-4584-bf17-726500d1254d}</Project>
-      <Name>Genetic</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\photoICO.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="output-onlinepngtools.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8.1">
@@ -261,12 +252,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="schedule.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="schedule1.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\schedule.png" />

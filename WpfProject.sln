@@ -4,11 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp", "WpfApp.csproj", "{4E546B48-DDFF-4EDC-818C-12DDD6307676}"
-	ProjectSection(ProjectDependencies) = postProject
-		{06606F85-A37A-4584-BF17-726500D1254D} = {06606F85-A37A-4584-BF17-726500D1254D}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Genetic", "..\Genetic\Genetic.csproj", "{06606F85-A37A-4584-BF17-726500D1254D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,10 +15,6 @@ Global
 		{4E546B48-DDFF-4EDC-818C-12DDD6307676}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E546B48-DDFF-4EDC-818C-12DDD6307676}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E546B48-DDFF-4EDC-818C-12DDD6307676}.Release|Any CPU.Build.0 = Release|Any CPU
-		{06606F85-A37A-4584-BF17-726500D1254D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06606F85-A37A-4584-BF17-726500D1254D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06606F85-A37A-4584-BF17-726500D1254D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06606F85-A37A-4584-BF17-726500D1254D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
