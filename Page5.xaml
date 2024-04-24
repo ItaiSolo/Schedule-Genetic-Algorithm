@@ -1,0 +1,135 @@
+﻿<Page x:Class="WpfApp.Page5"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page5">
+    <Page.Resources>
+        <!-- TabControl Style -->
+        <Style TargetType="TabControl" x:Key="TabControlStyle">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#FF0078D7"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Padding" Value="5"/>
+           
+        </Style>
+
+        <!-- ListViewItem Style -->
+        <Style TargetType="ListViewItem" x:Key="ListViewItemStyle">
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderBrush" Value="#FF0078D7"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#FF0078D7"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+
+        <Grid Margin="10">
+            <TabControl Style="{StaticResource TabControlStyle}">
+                <!-- Example Day 1: Monday -->
+                <TabItem Header="Sunday" Margin="0,0,0,0" Width="100">
+                    <ListView ItemsSource="{Binding SundaySchedule}" ItemContainerStyle="{StaticResource ListViewItemStyle}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Time}" FontWeight="Bold" Margin="0,0,5,0"/>
+                                    <TextBlock Text="{Binding Activity}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </TabItem>
+
+                <TabItem Header="Monday" Width="100">
+                    <ListView ItemsSource="{Binding MondaySchedule}" ItemContainerStyle="{StaticResource ListViewItemStyle}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Time}" FontWeight="Bold" Margin="0,0,5,0"/>
+                                    <TextBlock Text="{Binding Activity}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </TabItem>
+
+                <!-- Repeat for other days -->
+                <TabItem Header="Tuesday" Width="100">
+                    <ListView ItemsSource="{Binding TuesdaySchedule}" ItemContainerStyle="{StaticResource ListViewItemStyle}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Time}" FontWeight="Bold" Margin="0,0,5,0"/>
+                                    <TextBlock Text="{Binding Activity}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </TabItem>
+
+                <TabItem Header="Wednesday" Margin="0,0,0,0" Width="110">
+                    <ListView ItemsSource="{Binding WednesdaySchedule}" ItemContainerStyle="{StaticResource ListViewItemStyle}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Time}" FontWeight="Bold" Margin="0,0,5,0"/>
+                                    <TextBlock Text="{Binding Activity}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </TabItem>
+                <!-- Add more TabItems for other days -->
+                <TabItem Header="Thursday" Margin="0,0,0,0" Width="100">
+                    <ListView ItemsSource="{Binding ThursdaySchedule}" ItemContainerStyle="{StaticResource ListViewItemStyle}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Time}" FontWeight="Bold" Margin="0,0,5,0"/>
+                                    <TextBlock Text="{Binding Activity}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </TabItem>
+
+                <TabItem Header="Friday" Margin="0,0,0,0" Width="100">
+                    <ListView ItemsSource="{Binding FridaySchedule}" ItemContainerStyle="{StaticResource ListViewItemStyle}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Time}" FontWeight="Bold" Margin="0,0,5,0"/>
+                                    <TextBlock Text="{Binding Activity}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </TabItem>
+
+                <TabItem Header="Saturday" Margin="0,0,0,0" Width="100">
+                    <ListView ItemsSource="{Binding SaturdaySchedule}" ItemContainerStyle="{StaticResource ListViewItemStyle}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Time}" FontWeight="Bold" Margin="0,0,5,0"/>
+                                    <TextBlock Text="{Binding Activity}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </TabItem>
+
+            </TabControl>
+        </Grid>
+    </Grid>
+</Page>

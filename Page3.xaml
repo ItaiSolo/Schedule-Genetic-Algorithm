@@ -1,0 +1,112 @@
+﻿<Page x:Class="WpfApp.Page3"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Title="Schedule Page">
+
+    <Page.Resources>
+        <!-- Add Styles here for TextBlocks, DataGrid and other UI elements for a consistent look -->
+
+        <Style x:Key="SaveButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="LightGreen"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="LightGreen"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Green"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Page.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <!-- DataGrid will take the remaining space -->
+            <RowDefinition Height="40" MinHeight="15.72"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="ScheduleTitel" Grid.Row="0" Text="Schedule Information[View By Days -> In Home]" FontSize="20" FontWeight="Bold" Margin="5,5,5,5" Background="AliceBlue"/>
+
+        <!-- DataGrid for displaying the schedule -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- DataGrid for displaying the schedule -->
+            <DataGrid x:Name="ScheduleDataGrid" AutoGenerateColumns="False" IsReadOnly="True" Margin="5" FontSize="16" FontWeight="Bold" Grid.Column="0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Class #" Binding="{Binding ClassNumber}"/>
+                    <DataGridTextColumn Header="Course " Binding="{Binding Courses}"/>
+                    <DataGridTextColumn Header="Room " Binding="{Binding Rooms}"/>
+                    <DataGridTextColumn Header="Instructor " Binding="{Binding Instructors}"/>
+                    <DataGridTextColumn Header="Meeting Time   " Binding="{Binding MeetingTimes}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- DataGrid for displaying conflicts -->
+            <DataGrid x:Name="ScheduleDataGrid2" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,5,5,5" FontSize="16" FontWeight="Bold" Grid.Column="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Conflicts Exists  " Binding="{Binding}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+
+        <!-- Displaying Fitness and Generations and conflict information -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="4,0,0,25" Background="AliceBlue" HorizontalAlignment="Left" Grid.RowSpan="2" Width="164" Height="20">
+            <TextBlock Text=" Fitness: " FontWeight="Bold" FontSize="14" Width="76"/>
+            <TextBlock x:Name="FitnessValue" Text="{Binding Fitness}" Background="AliceBlue" RenderTransformOrigin="0.5,0.5" Width="75" FontSize="16" Height="18" FontFamily="Arial Black">
+            </TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" Margin="4,5,0,5" Background="AliceBlue" Width="164" Height="20">
+            <TextBlock Text=" Generations: " FontWeight="Bold" FontSize="14" Height="18" Width="91"/>
+            <TextBlock x:Name="GenerationValue" Text="{Binding Generations}" Background="AliceBlue" RenderTransformOrigin="0.5,0.5" Width="61" FontSize="16" Height="18" FontFamily="Arial Black">
+
+            </TextBlock>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="4" Margin="179,5,0,5" Background="AliceBlue" Width="164" Height="20" HorizontalAlignment="Left" Orientation="Horizontal">
+            <TextBlock Text=" Conflicts: " FontWeight="Bold" FontSize="14" Width="76"/>
+            <TextBlock x:Name="ConflictsValue" Text="{Binding Conflicts}" Background="AliceBlue" RenderTransformOrigin="0.5,0.5" Width="65" FontSize="16" Height="18" FontFamily="Arial Black">
+            </TextBlock>
+        </StackPanel>
+
+
+        <Button x:Name="SaveDataButton" Content="Save Data" Style="{StaticResource SaveButtonStyle}" Background="Green" Click="SaveData_Click" Grid.Row="5" />
+
+        <StackPanel Grid.Row="4" Margin="348,5,0,5" Background="AliceBlue" Width="184" Height="20" HorizontalAlignment="Left" Orientation="Horizontal">
+            <TextBlock x:Name="dateTimeText" Text=" Time Taken: " FontWeight="Bold" FontSize="14" Width="87" Height="20" VerticalAlignment="Bottom"/>
+            <Label x:Name="timerLabel" Width="97" FontSize="16" Height="28" FontWeight="Bold" VerticalAlignment="Bottom" />
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Margin="179,17,0,3" Background="AliceBlue" Width="353" Height="20" HorizontalAlignment="Left" Orientation="Horizontal">
+            <TextBlock x:Name="CurrentDate" Text=" Date Created: " FontWeight="Bold" FontSize="14" Width="100" Height="20" VerticalAlignment="Bottom"/>
+            <Label x:Name="CurrentDateLabel" Width="223" FontSize="16" Height="26" FontWeight="Bold" VerticalAlignment="Bottom" />
+
+        </StackPanel>
+    </Grid>
+</Page>

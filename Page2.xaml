@@ -1,0 +1,119 @@
+﻿<Page x:Class="WpfApp.Page2"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page2">
+
+    <Page.Resources>
+        <!-- TextBox Style -->
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="#FFF"/>
+            <Setter Property="Foreground" Value="#333"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+
+        <!-- ComboBox Style -->
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#FFF"/>
+            <Setter Property="Foreground" Value="#333"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <!-- Button Style -->
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Width" Value="110"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Background" Value="DodgerBlue"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- TextBlock Style -->
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Margin" Value="5,20,5,5"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+    </Page.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="instructionLabel" Grid.Row="3" Text="Enter Classroom Name" Background="AntiqueWhite" FontSize="18" Margin="5,20,5,5" />
+        <!-- Text Inputs with Placeholder Text -->
+        <TextBox x:Name="stringInput1" Grid.Row="4" Text="" FontSize="16" Foreground="Gray" Margin="5,9,5,10"/>
+
+        <!-- Label for Number of Seats -->
+        <TextBlock x:Name="SeatsLabel" Grid.Row="5" Text="Number of Seats per Class:" Background="AntiqueWhite" FontSize="18" Margin="5,20,5,5" />
+
+        <!-- Stepper Control for Number of Seats -->
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,160" Width="453">
+            <TextBox x:Name="seatsInput" Width="56" Text="0" FontSize="16" TextAlignment="Center"/>
+            <Button x:Name="plusB" Content="+" Click="IncreaseSeats_Click" FontSize="22" FontWeight="Bold"/>
+            <Button x:Name="minusB" Content="-" Click="DecreaseSeats_Click" FontSize="22" FontWeight="Bold"/>
+            <TextBlock x:Name="dayLabel" Text="Sunday" FontSize="16" Margin="10,0,0,0"
+                       Foreground="AliceBlue" Background="Indigo" TextAlignment="Center" Height="24" Width="130" FontWeight="Bold" Visibility="Hidden"/>
+        </StackPanel>
+
+        <Button x:Name="SubmitButton" Content="Add Data" Grid.Row="6" Click="SubmitButton_Click" Margin="325,125,325,45" FontSize="16" FontWeight="Bold"/>
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center" Width="240">
+            <Button x:Name="Previous" Content="Previous" Click="Previous_Click" FontSize="16"/>
+            <Button x:Name="Next" Content="Next" Click="Next_Click" FontSize="16"/>
+        </StackPanel>
+
+        <!-- ComboBox 1 -->
+        <ComboBox x:Name="comboBox1" Grid.Row="6" Margin="592,7,0,160" Width="134" 
+                  ItemsSource="{Binding OptionsForComboBox1}"
+                  SelectedItem="{Binding SelectedOption, Mode=TwoWay}"
+                  DisplayMemberPath="." MouseEnter="MenuOpenedInstructors" FontSize="16" Height="NaN" Visibility="Hidden"/>
+        <Button x:Name="SubmitListButton" Content="Submit Teacher" Grid.Row="6" Click="SubmitList"
+                Margin="604,54,46,111" FontSize="14" Height="NaN" Visibility="Hidden"/>
+
+    </Grid>
+</Page>
