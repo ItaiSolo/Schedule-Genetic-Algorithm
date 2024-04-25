@@ -1,24 +1,15 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
-using WpfApp.MVM.View;
 
 namespace WpfApp
 {
     /// create the main window and pages and initialize
-    /// 
 
     public partial class MainWindow : Window
     {
-        public static SignIn SignInWindow =  new SignIn();// create the page1 window and every thing else
+        public static SignIn SignInWindow = new SignIn();// create the page1 window and every thing else
         public static CreateSchedule CreateWindow = new CreateSchedule();
         public static ShowSchedule showScheduleLive = new ShowSchedule();
         public static Info showData = new Info();
@@ -91,21 +82,21 @@ namespace WpfApp
 
             switch (radioButton.Content.ToString())
             {
-                case "Home":                   
-                        MainFrame.Navigate(showScheduleDays);
+                case "Home":
+                    MainFrame.Navigate(showScheduleDays);
 
                     break;
                 case "Sign-In":
-                        MainFrame.Navigate(SignInWindow);
-                   
+                    MainFrame.Navigate(SignInWindow);
+
                     break;
                 case "Create":
-                        MainFrame.Navigate(CreateWindow);
-                    
+                    MainFrame.Navigate(CreateWindow);
+
                     break;
                 case "Info":
                     MainFrame.Navigate(showData); // can also be MainFrame.Navigate(new otherPage1());
-                   
+
                     break;
                 default:
                     MainFrame.Content = SignInWindow;

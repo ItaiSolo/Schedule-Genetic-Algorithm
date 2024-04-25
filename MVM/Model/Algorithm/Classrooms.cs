@@ -1,5 +1,5 @@
 ﻿/*
- * 
+ * This class holds the classroom information like room id and seating capacity
  */
 
 public class Classrooms

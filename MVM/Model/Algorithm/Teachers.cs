@@ -1,4 +1,7 @@
-﻿public class Teachers
+﻿/*
+ * This class represents a teacher in the system that has a name,ID and a list of available meeting times.
+ */
+public class Teachers
 {
     public string Id { get; set; }
     public string Name { get; set; }

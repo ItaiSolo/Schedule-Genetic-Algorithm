@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.ConstrainedExecution;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -20,7 +16,7 @@ namespace WpfApp
         static int CourseId = 1;
         bool isDayOfTheWeek = false;
         int MinValue = 0;
-        int MaxValueLimit = 500;    
+        int MaxValueLimit = 500;
         int MaxValue = 500;
         bool SubmitTeacher = false; //if false then it will submit the MeetingTimes
 
@@ -60,6 +56,7 @@ namespace WpfApp
             Program.data = new Data(); // this initializes your data correctly         
         }
 
+        // increase and decrease the number in the box
         private void IncreaseSeats_Click(object sender, RoutedEventArgs e)
         {
             int currentValue = int.TryParse(seatsInput.Text, out int value) ? value : 0;
@@ -90,10 +87,10 @@ namespace WpfApp
             }
         }
 
-
-        private void SubmitButton_Click(object sender, RoutedEventArgs e) // reset and move the data to !Data!
+        // Reset the fields and move the data to Data class in its valid. 
+        private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            
+
             // Example: Fetch and use the input data from TextBoxes
             int seats;
             isDayOfTheWeek = false;
@@ -149,7 +146,7 @@ namespace WpfApp
                     //Teachers insertion
                     // adds the meeting time per teacher
                     ShowSelectionBox();
-                    
+
                     if (stringInput1.Text.Length > 0 && !Program.data.MeetingTimesPerTeacher.IsEmpty)
                     {
                         ChangeColorS(sender, e);
@@ -183,7 +180,7 @@ namespace WpfApp
         {
             dayLabel.Visibility = Visibility.Hidden;
             if (nextTimes < 4)
-            nextTimes++;
+                nextTimes++;
 
             // Example: Fetch and use the input data from TextBoxes
             stringInput1.Visibility = Visibility.Visible;
@@ -232,14 +229,15 @@ namespace WpfApp
             }
         }
 
+        //return to previous page
         private void Previous_Click(object sender, RoutedEventArgs e)
         {
             dayLabel.Visibility = Visibility.Hidden;
             stringInput1.Visibility = Visibility.Visible;
             isDayOfTheWeek = false;
             if (nextTimes > 0)
-            nextTimes--;
-            
+                nextTimes--;
+
             switch (nextTimes)
             {
                 case 0:
@@ -281,8 +279,7 @@ namespace WpfApp
             }
         }
 
-        // If setting the data context in code-behind or performing additional initialization
-        
+        //help functions
         private void ShowSelectionBox()
         {
             comboBox1.Visibility = Visibility.Visible;
@@ -296,7 +293,7 @@ namespace WpfApp
         }
 
         private void ShowCounter()
-        { 
+        {
             SeatsLabel.Visibility = Visibility.Visible;
             seatsInput.Visibility = Visibility.Visible;
             plusB.Visibility = Visibility.Visible;
@@ -311,10 +308,11 @@ namespace WpfApp
             minusB.Visibility = Visibility.Hidden;
         }
 
-       
+
         private void SubmitList(object sender, RoutedEventArgs e)
         {
-            if (SubmitTeacher) {                 // check if SubmitMeetingTimes / SubmitInstructors
+            if (SubmitTeacher)
+            {                 // check if SubmitMeetingTimes / SubmitInstructors
                 int selectedIndex = comboBox1.SelectedIndex;
                 if (selectedIndex == -1)
                 {
@@ -330,7 +328,8 @@ namespace WpfApp
                 {
                     ChangeColorF(sender, e);
                 }
-            }else
+            }
+            else
             {
                 SubmitMeetingTimesClick(sender, e);
             }
@@ -380,7 +379,7 @@ namespace WpfApp
             }
         }
 
-        
+
         public void ChangeColorS(object sender, RoutedEventArgs e) // Change the color of the button is Seccssesful
         {
             Button button = sender as Button;
@@ -421,10 +420,11 @@ namespace WpfApp
             }
         }
 
-        public void updateDataSQL(Data newData)
+        // update desplay data in Info Page and Data class
+        public void UpdateDataSQL(Data newData)
         {
             Program.data = newData;
-            MainWindow.showData.UpdateData(Program.data);// update desplay data in Info
+            MainWindow.showData.UpdateData(Program.data);
         }
     }
 }

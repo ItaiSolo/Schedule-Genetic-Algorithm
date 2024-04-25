@@ -1,21 +1,7 @@
-﻿using Org.BouncyCastle.Asn1.Cms;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WpfApp
 {
@@ -54,6 +40,7 @@ namespace WpfApp
             view4.Refresh();
         }
 
+        //Deletes a row from the DataGrid in the UI - Info and the corresponding data from the Data class
         private void DeleteCourse(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -71,7 +58,7 @@ namespace WpfApp
             DataGrid2.ItemsSource = Data.Rooms;
             view2.Refresh();
         }
-        
+
         private void DeleteInstructor(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -87,6 +74,6 @@ namespace WpfApp
             Data.MeetingTimes.Delete(item as DateRange);
             DataGrid4.ItemsSource = Data.MeetingTimes;
             view4.Refresh();
-        }   
+        }
     }
 }

@@ -1,4 +1,9 @@
 ﻿using System;
+
+/*
+ * This class represents the data in the system, that is used by the algorithms and shown in the UI.
+ */
+
 public class Data
 {
     public MyList<Classrooms> Rooms { get; private set; }
@@ -17,7 +22,7 @@ public class Data
     public Data Initialize()
     {
         // Initialize rooms
-        
+
         Rooms = new MyList<Classrooms>();
         MeetingTimes = new MyList<DateRange>();
         Instructors = new MyList<Teachers>();
@@ -56,10 +61,10 @@ public class Data
         var today = DateTime.Today;
 
         var range1Start = new DateTime(today.Year, today.Month, range1StartDay, range1StartHour, 0, 0);
-        var range1End   = new DateTime(today.Year, today.Month, range1EndDay, range1EndHour, 0, 0);
+        var range1End = new DateTime(today.Year, today.Month, range1EndDay, range1EndHour, 0, 0);
 
         var range2Start = new DateTime(today.Year, today.Month, range2StartDay, range2StartHour, 0, 0);
-        var range2End   = new DateTime(today.Year, today.Month, range2EndDay, range2EndHour, 0, 0);
+        var range2End = new DateTime(today.Year, today.Month, range2EndDay, range2EndHour, 0, 0);
 
         var range3Start = new DateTime(today.Year, today.Month, range3StartDay, range3StartHour, 0, 0);
         var range3End = new DateTime(today.Year, today.Month, range3EndDay, range3EndHour, 30, 0);
@@ -70,10 +75,10 @@ public class Data
 
         // Initialize meeting times
         //שעות הלימוד האפשריות
-        MeetingTimes.Add(new DateRange(range1Start, range1End,1));      // "MWF 09:00 - 10:00"));
-        MeetingTimes.Add(new DateRange(range2Start, range2End,2));     // "MWF 10:00 - 11:00"));
-        MeetingTimes.Add(new DateRange(range3Start, range3End,3));    // "TTH 09:00 - 10:30"));
-        MeetingTimes.Add(new DateRange(range4Start, range4End,4));   // "TTH 10:30 - 12:00"));
+        MeetingTimes.Add(new DateRange(range1Start, range1End, 1));      // "MWF 09:00 - 10:00"));
+        MeetingTimes.Add(new DateRange(range2Start, range2End, 2));     // "MWF 10:00 - 11:00"));
+        MeetingTimes.Add(new DateRange(range3Start, range3End, 3));    // "TTH 09:00 - 10:30"));
+        MeetingTimes.Add(new DateRange(range4Start, range4End, 4));   // "TTH 10:30 - 12:00"));
 
         // Initialize instructors
         Instructors.Add(new Teachers("I1", "Dr. James Web", MeetingTimes));
@@ -88,7 +93,7 @@ public class Data
         // Initialize courses
 
         Courses1.Add(new Courses("C1", "325K", new MyList<Teachers> { Instructors.GetAt(0), Instructors.GetAt(1) }, 25));
-        
+
         Courses1.Add(new Courses("C2", "319K", new MyList<Teachers> { Instructors.GetAt(0), Instructors.GetAt(1), Instructors.GetAt(2) }, 35));
         Courses1.Add(new Courses("C3", "462K", new MyList<Teachers> { Instructors.GetAt(0), Instructors.GetAt(2), Instructors.GetAt(3) }, 30));
         Courses1.Add(new Courses("C4", "464K", new MyList<Teachers> { Instructors.GetAt(3), Instructors.GetAt(2) }, 30));

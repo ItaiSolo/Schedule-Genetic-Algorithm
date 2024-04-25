@@ -3,7 +3,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using WpfApp.MVM.View;
 
 namespace WpfApp
 {
@@ -22,16 +21,17 @@ namespace WpfApp
             InitializeComponent();
         }
 
+        //Gets data from main program and calls the main algorithm then displays the results
         public void LoadScheduleData(MainProgram Program)
         {
             startTime = DateTime.Now;
-            
+
             this.Program = Program;
             // Load data into the DataGrid
             scheduleResult = Program.MainRun(Program);
             if (scheduleResult != null)
             {
-                ShowResult(scheduleResult,true);
+                ShowResult(scheduleResult, true);
             }
             else
             {
@@ -39,6 +39,7 @@ namespace WpfApp
             }
         }
 
+        //Saves the data to the database
         private void SaveData_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             if (MainWindow.SignInWindow.InsertNewSchedule(scheduleResult, Program.data)) // send to database/signIn window
@@ -51,7 +52,8 @@ namespace WpfApp
             }
         }
 
-        public void ShowResult(MyList<ScheduleResult> scheduleResult, bool newSchedule,string dateCreated = "")
+        //Displays the results in the UI Grid 
+        public void ShowResult(MyList<ScheduleResult> scheduleResult, bool newSchedule, string dateCreated = "")
         {
             if (newSchedule)
             {
@@ -69,7 +71,7 @@ namespace WpfApp
             Dispatcher.Invoke(() =>
             {
                 Generation = scheduleResult.GetAt(0).Generations;
-                Fitness = Math.Round(scheduleResult.GetAt(0).Fitness,4);
+                Fitness = Math.Round(scheduleResult.GetAt(0).Fitness, 4);
                 Conflicts = scheduleResult.GetAt(0).Conflicts;
 
                 ConflictsValue.Text = Conflicts.ToString();

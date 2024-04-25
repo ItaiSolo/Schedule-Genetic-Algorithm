@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * 
+ * This class is used to represent one time cube slot in a schedule.
+ * it contains Id, Course, Instructor, MeetingTime, Room.
+ */
 public class TimeCube
 {
     public int Id { get; private set; }

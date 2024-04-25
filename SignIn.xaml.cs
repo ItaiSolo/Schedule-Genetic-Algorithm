@@ -1,24 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Transactions;
+﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml;
-using System.Xml.Linq;
-using MySql.Data.MySqlClient;
-using Mysqlx.Crud;
-using Newtonsoft.Json;
-using System.IO;
-using System.Data;
 
 namespace WpfApp
 {
@@ -42,6 +28,7 @@ namespace WpfApp
             connection.Open();
         }
 
+        //login button calls "SearchSQL" and return if user is found
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -69,7 +56,8 @@ namespace WpfApp
             }
         }
 
-
+        // Search for the user with that username and password in the database
+        // Return the user's ID if found
         public int SearchSQL(string username, string password, MySqlConnection connection)
         {
             if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
@@ -96,9 +84,10 @@ namespace WpfApp
             return -1;
         }
 
+        // Sign up a new user with that username and password given. calls "SignUpSQL"
         private void SignUp(object sender, MouseButtonEventArgs e)
         {
-            { 
+            {
                 try
                 {
                     SignUpSQL(txtUser.Text, txtPass.Password, connection);
@@ -110,10 +99,10 @@ namespace WpfApp
                 }
             }
         }
-
+        //continues signing up in the database with SQL commands
         private void SignUpSQL(string username, string password, MySqlConnection connection)
         {
-            if (txtUser.Text != null && txtPass.Password != null && txtUser.Text != "" && 
+            if (txtUser.Text != null && txtPass.Password != null && txtUser.Text != "" &&
                 txtPass.Password != "" && txtUser.Text.Length > 1 && txtPass.Password.Length > 1)
             {
                 string commandText = "INSERT INTO TempUsers (name, password) VALUES (@name, @password);";
@@ -127,7 +116,8 @@ namespace WpfApp
             }
         }
 
-        private void IncreaseSeats_Click(object sender, RoutedEventArgs e)
+        //increase and decrease the ID of the loaded schedule and calles "LoadSchedule"
+        private void IncreaseId_Click(object sender, RoutedEventArgs e)
         {
             if (int.TryParse(seatsInput.Text, out int currentValue))
             {
@@ -139,17 +129,18 @@ namespace WpfApp
             }
         }
 
-        private void DecreaseSeats_Click(object sender, RoutedEventArgs e)
+        private void DecreaseId_Click(object sender, RoutedEventArgs e)
         {
             if (int.TryParse(seatsInput.Text, out int currentValue) && currentValue > 0)
             {
                 seatsInput.Text = (currentValue - 1).ToString();
-                if(LoadSchedule(currentValue - 1))
+                if (LoadSchedule(currentValue - 1))
                     MainWindow.CreateWindow.ChangeColorS(sender, e);
                 else MainWindow.CreateWindow.ChangeColorF(sender, e);
             }
         }
 
+        //inserts the schedule into the database calles "SaveDataSchedule" for the insertion in MySql
         public bool InsertNewSchedule(MyList<ScheduleResult> result, Data data)
         {
             using (var transaction = connection.BeginTransaction())
@@ -166,7 +157,7 @@ namespace WpfApp
                 }
             }
         }
-
+        //loads the schedule from the database into the UI if found the schedule ID per that user
         private bool LoadSchedule(int currentScheduleId)
         {
             var query = @"
@@ -183,11 +174,11 @@ namespace WpfApp
                     {
                         string jsonData = reader.GetString("save");
                         Data data = JsonConvert.DeserializeObject<Data>(jsonData);
-                        MainWindow.CreateWindow.updateDataSQL(data);
+                        MainWindow.CreateWindow.UpdateDataSQL(data);
                         string jsonResultData = reader.GetString("save2");
                         MyList<ScheduleResult> result = JsonConvert.DeserializeObject<MyList<ScheduleResult>>(jsonResultData);
                         DateTime? dateCreated = reader.IsDBNull(reader.GetOrdinal("dateCreated")) ? null : (DateTime?)reader.GetDateTime("dateCreated");
-                        MainWindow.showScheduleLive.ShowResult(result,false, dateCreated.ToString());
+                        MainWindow.showScheduleLive.ShowResult(result, false, dateCreated.ToString());
                         NavigationService.Navigate(MainWindow.showScheduleLive); // make the schedule
                         return true;
                     }
@@ -197,7 +188,7 @@ namespace WpfApp
         }
 
 
-
+        //inserts the current schedule data into the database
         public void SaveDataSchedule(MyList<ScheduleResult> result, Data data)
         {
             string jsonData = JsonConvert.SerializeObject(data);

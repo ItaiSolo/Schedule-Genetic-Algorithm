@@ -70,8 +70,8 @@
                     <!-- Stepper Control for Number of Seats -->
                     <StackPanel x:Name="inputStackPanel" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" Width="466" Visibility="Hidden" Margin="10,0,0,0">
                         <TextBox x:Name="seatsInput" Width="60" Text="0" FontSize="16" TextAlignment="Center" Height="30"/>
-                        <Button x:Name="plusB" Content="+" Click="IncreaseSeats_Click" FontSize="22" FontWeight="Bold"/>
-                        <Button x:Name="minusB" Content="-" Click="DecreaseSeats_Click" FontSize="22" FontWeight="Bold"/>
+                        <Button x:Name="plusB" Content="+" Click="IncreaseId_Click" FontSize="22" FontWeight="Bold"/>
+                        <Button x:Name="minusB" Content="-" Click="DecreaseId_Click" FontSize="22" FontWeight="Bold"/>
                     </StackPanel>
 
                     <!-- Label ScheduleLabel -->
@@ -104,8 +104,6 @@
                             Margin="273,35,273,0">
 
                     <Image  Source="/Images/schedule.png" Width="220" Height="150" VerticalAlignment="Top"/>
-
-
 
                     <TextBlock x:Name="WelcomeText" Text="sign in or sign up to scheduley"
                                Foreground="LightGray"

@@ -5,19 +5,21 @@ namespace WpfApp.Core
 {
     internal class RelayCommend : ICommand
     {
-        private Action<Object> _execute ;
-        private Func<Object,bool> _canExecute; // <T>
+        private Action<Object> _execute;
+        private Func<Object, bool> _canExecute; // <T>
         public event EventHandler CanExecuteChanged
         {
-            add { 
-                CommandManager.RequerySuggested += value; 
+            add
+            {
+                CommandManager.RequerySuggested += value;
             }
-            remove { 
-                CommandManager.RequerySuggested -= value; 
+            remove
+            {
+                CommandManager.RequerySuggested -= value;
             }
-            
+
         }
-        public RelayCommend(Action <Object> execute,Func <Object,bool> canExcecute = null)
+        public RelayCommend(Action<Object> execute, Func<Object, bool> canExcecute = null)
         {
             execute = null;
             _execute = execute;

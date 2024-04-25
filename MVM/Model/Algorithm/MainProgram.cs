@@ -2,13 +2,13 @@
 
 public class MainProgram
 {
-    //initialize data
-    public const int POPULATION_SIZE = 120;
+    //initialize constraints/ consts
+    public const int POPULATION_SIZE = 150;
     public const double MUTATION_RATE = 0.2;
     public const double CROSSOVER_RATE = 0.9;//
     public const int TOURNAMENT_SELECTION_SIZE = 5;
     public const int NUM_OF_ELITE_SCHEDULES = 2;
-    public const int MaxIteretions = 1100;
+    public const int MaxIteretions = 2000;
     public const double BestFitness = 1;
     public const int BestConflicts = 0;
     public Random mainRand;
@@ -16,6 +16,8 @@ public class MainProgram
     public int classNum = 1;
     public Data data;
 
+    //Run the genetic algorithm according to the data,constraints and number of iterations
+    //returns a list of schedule results
     public MyList<ScheduleResult> MainRun(MainProgram Program)
     {
         if (Program == null) return null;
@@ -34,7 +36,7 @@ public class MainProgram
         double currentBestFitness = population.Schedules.GetAt(0).Fitness;
         int currentBestConflicts = population.Schedules.GetAt(0).NumbOfConflicts;
 
-        while (currentBestFitness != BestFitness && generationNumber < MaxIteretions && currentBestConflicts > BestConflicts)
+        while (currentBestFitness != BestFitness && generationNumber < MaxIteretions - 1 && currentBestConflicts > BestConflicts)
         {
             population = geneticAlgorithm.EvolvePopulation(population);
             population.SortSchedulesByFitness(); // Sort only after evolution
@@ -44,7 +46,15 @@ public class MainProgram
             generationNumber++;
 
         }
+        if (generationNumber == MaxIteretions - 1)
+        {
+            population = geneticAlgorithm.EvolvePopulation(population);
+            population.SortSchedulesByFitnessLast(); // Sort only after evolution
 
+            currentBestFitness = population.Schedules.GetAt(0).Fitness;
+            currentBestConflicts = population.Schedules.GetAt(0).NumbOfConflicts;
+            generationNumber++;
+        }
         // Extract and record class details
         foreach (var x in population.Schedules.GetAt(0).Classes)
         {
@@ -54,9 +64,9 @@ public class MainProgram
                 x.Room.RoomId,
                 x.Instructor.Name,
                 x.MeetingTime.ToString(),
-                population.Schedules.GetAt(0).Fitness,
-                (generationNumber + 1),
-                population.Schedules.GetAt(0).NumbOfConflicts
+                currentBestFitness,
+                (generationNumber),
+                currentBestConflicts
             ));
         }
         scheduleResultList.GetAt(0).SetErrors(population.Schedules.GetAt(0).ConflictsList.Copy());
