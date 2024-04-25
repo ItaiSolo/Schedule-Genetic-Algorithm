@@ -11,7 +11,7 @@ using System.Windows.Threading;
 
 namespace WpfApp
 {
-    public partial class Page2 : Page
+    public partial class CreateSchedule : Page
     {
         public static MainProgram Program = new MainProgram();//main- program, data,etc
         int nextTimes = 0;
@@ -54,7 +54,7 @@ namespace WpfApp
             }
         }
 
-        public Page2()
+        public CreateSchedule()
         {
             InitializeComponent();
             Program.data = new Data(); // this initializes your data correctly         

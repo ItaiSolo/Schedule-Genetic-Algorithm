@@ -20,20 +20,21 @@ using System.Windows.Shapes;
 namespace WpfApp
 {
     /// <summary>
-    /// Interaction logic for Page4.xaml
+    /// Interaction logic for Info.xaml
     /// </summary>
-    public partial class Page4 : Page
+    public partial class Info : Page
     {
         private ICollectionView view1 = null;
         private ICollectionView view2 = null;
         private ICollectionView view3 = null;
         private ICollectionView view4 = null;
         Data Data;
-        public Page4()
+        public Info()
         {
             InitializeComponent();
         }
 
+        //Refreshes the data in the DataGrid in the UI - Info 
         public void UpdateData(Data data)
         {
             Data = data;

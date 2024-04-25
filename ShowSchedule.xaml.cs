@@ -7,7 +7,7 @@ using WpfApp.MVM.View;
 
 namespace WpfApp
 {
-    public partial class Page3 : Page
+    public partial class ShowSchedule : Page
     {
         MainProgram Program;
         int Generation = 0;
@@ -17,7 +17,7 @@ namespace WpfApp
         MyList<ScheduleResult> scheduleResult;
         DateTime startTime;
 
-        public Page3()
+        public ShowSchedule()
         {
             InitializeComponent();
         }

@@ -23,20 +23,19 @@ using System.Data;
 namespace WpfApp
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    /// Interaction logic for SignIn.xaml
     /// </summary>
-    public partial class Page1 : Page
+    public partial class SignIn : Page
     {
         // Connection string includes the server information, database name, user name, and password.
         string connectionString = "server=database-3f.cbacig0a47uz.eu-north-1.rds.amazonaws.com;" +
                                   "user=admin;password=asdQWE123!^&*; database=try1;";
-        bool LoggedIn = false;
         MySqlConnection connection;
         private string UserName;
         private string Password;
         private int userId;
 
-        public Page1()
+        public SignIn()
         {
             InitializeComponent();
             connection = new MySqlConnection(connectionString);
@@ -58,7 +57,6 @@ namespace WpfApp
                     inputStackPanel.Visibility = Visibility.Visible;
                     ScheduleLabel.Visibility = Visibility.Visible;
                     SignedText.Visibility = Visibility.Visible;
-                    LoggedIn = true;
                 }
                 else
                 {

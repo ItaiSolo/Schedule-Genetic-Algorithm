@@ -17,10 +17,6 @@ using System.Windows.Shapes;
 
 namespace WpfApp
 {
-    /// <summary>
-    /// Interaction logic for Page5.xaml
-    /// </summary>
-    /// 
     //subclass ScheduleItem
     public class ScheduleItem
     {
@@ -33,7 +29,9 @@ namespace WpfApp
             Activity = activity;
         }
     }
-    public partial class Page5 : Page
+
+    /// This class takes in a list of schedule items and displays them in a grid separated by days
+    public partial class ScheduleDays : Page
     {
         public ObservableCollection<ScheduleItem> SundaySchedule { get; set; } = new ObservableCollection<ScheduleItem>();
         public ObservableCollection<ScheduleItem> MondaySchedule { get; set; } = new ObservableCollection<ScheduleItem>();
@@ -43,11 +41,12 @@ namespace WpfApp
         public ObservableCollection<ScheduleItem> FridaySchedule { get; set; }  = new ObservableCollection<ScheduleItem>();
         public ObservableCollection<ScheduleItem> SaturdaySchedule { get; set; } = new ObservableCollection<ScheduleItem>();
 
-        public Page5()
+        public ScheduleDays()
         {
             InitializeComponent();  
         }
 
+        // Shows the full schedule based on the provided scheduleResult.
         public void ShowFull(MyList<ScheduleResult> scheduleResult)
         {
             SundaySchedule.Clear();
@@ -100,6 +99,7 @@ namespace WpfApp
             DataContext = this;
         }
 
+        // adds each row in the schedule to the scheduleItems to show later in the UI
         private ScheduleItem AddItem(string[] times,ScheduleResult item)
         {
             return new ScheduleItem(string.Join(" ", times.Skip(1)),

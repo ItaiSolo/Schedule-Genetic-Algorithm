@@ -160,23 +160,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Page1.xaml">
+    <Page Include="SignIn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page2.xaml">
+    <Page Include="CreateSchedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page3.xaml">
+    <Page Include="ShowSchedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page4.xaml">
+    <Page Include="Info.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page5.xaml">
+    <Page Include="ScheduleDays.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -190,20 +190,20 @@
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVM\View\MainVIewModel.cs" />
-    <Compile Include="Page1.xaml.cs">
-      <DependentUpon>Page1.xaml</DependentUpon>
+    <Compile Include="SignIn.xaml.cs">
+      <DependentUpon>SignIn.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Page2.xaml.cs">
-      <DependentUpon>Page2.xaml</DependentUpon>
+    <Compile Include="CreateSchedule.xaml.cs">
+      <DependentUpon>CreateSchedule.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Page3.xaml.cs">
-      <DependentUpon>Page3.xaml</DependentUpon>
+    <Compile Include="ShowSchedule.xaml.cs">
+      <DependentUpon>ShowSchedule.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Page4.xaml.cs">
-      <DependentUpon>Page4.xaml</DependentUpon>
+    <Compile Include="Info.xaml.cs">
+      <DependentUpon>Info.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Page5.xaml.cs">
-      <DependentUpon>Page5.xaml</DependentUpon>
+    <Compile Include="ScheduleDays.xaml.cs">
+      <DependentUpon>ScheduleDays.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
