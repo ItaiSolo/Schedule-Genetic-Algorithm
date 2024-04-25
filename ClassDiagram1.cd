@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Classrooms">
+    <Position X="10.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAEAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVM\Model\Algorithm\Classrooms.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Courses">
+    <Position X="3.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIBAAQACEAAAAAAwAAAAEAAEAAAAAAAAARAA=</HashCode>
+      <FileName>MVM\Model\Algorithm\Courses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Data">
+    <Position X="5.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAQAAAAAAAAACBgAAAAAAAAAIABAAAAA=</HashCode>
+      <FileName>MVM\Model\Algorithm\Data.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DateRange">
+    <Position X="5.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICAAAAACAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVM\Model\Algorithm\DateRange.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeneticAlgorithm">
+    <Position X="10.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ACAAAIAAQBCAAAAAAAAAAACAAAAAAAAAAAAQAAQBAAA=</HashCode>
+      <FileName>MVM\Model\Algorithm\GeneticAlgo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainProgram">
+    <Position X="0.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIACAEAAAEBgAAEAAAAAAJAAAAAAAAAAAQACAEAAg=</HashCode>
+      <FileName>MVM\Model\Algorithm\MainProgram.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyList&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>IEJACACAAAAAgBAAAIKQAAAAAgMAAAAEAAAQAAFQAAA=</HashCode>
+      <FileName>MVM\Model\Algorithm\MyList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Population">
+    <Position X="3.25" Y="4.5" Width="2.25" />
+    <NestedTypes>
+      <Class Name="Population.ScheduleFitnessComparer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MVM\Model\Algorithm\Population.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+      <Class Name="Population.ScheduleFitnessComparerLast" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MVM\Model\Algorithm\Population.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>MVM\Model\Algorithm\Population.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScheduleResult">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAgAAAAAIAUAQAAAAAAACACBAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>MVM\Model\Algorithm\ScheduleResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedules">
+    <Position X="14.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAoAQAAIAEQAQCFBBCAAAAAgACAAADAAAAQAAAAAAA=</HashCode>
+      <FileName>MVM\Model\Algorithm\Schedules.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teachers">
+    <Position X="0.5" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ACACAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>MVM\Model\Algorithm\Teachers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeCube">
+    <Position X="12.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQSAAAAAAAAAAAEAJAAAAAABAAEAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>MVM\Model\Algorithm\TimeCube.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
