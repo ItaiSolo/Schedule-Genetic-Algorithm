@@ -16,6 +16,7 @@ public class DateRange
         Id = id;
     }
 
+    // Returns a string representation of the date range in the format "DayOfWeek StartTime - EndTime"
     public override string ToString()
     {
         string dayOfWeek = Start.DayOfWeek.ToString();
