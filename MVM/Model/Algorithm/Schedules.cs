@@ -10,7 +10,7 @@ public class Schedules
     private int numbOfConflicts = 0;
     private readonly Data data;
     public MyList<string> ConflictsList = new MyList<string>();
-    //temp variables
+    
     public TimeCube timeCubeX;
     public Courses courseTemp;
 

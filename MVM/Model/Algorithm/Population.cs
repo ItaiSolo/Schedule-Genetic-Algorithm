@@ -33,7 +33,6 @@ public class Population
     //comparator for sorting
     private class ScheduleFitnessComparer : IComparer<Schedules>
     {
-
         public int Compare(Schedules x, Schedules y)
         {
             return y.Fitness.CompareTo(x.Fitness);

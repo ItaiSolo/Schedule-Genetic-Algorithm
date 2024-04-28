@@ -80,6 +80,7 @@ public class MyList<T> : IEnumerable<T>
     }
 
     //deletes at index
+    //fun fact: using DeleteAt => O(n^2) but creating a new MyList without the deleted element => O(n)... :)
     public void DeleteAt(int index)
     {
         for (int i = index; i < size - 1; i++)

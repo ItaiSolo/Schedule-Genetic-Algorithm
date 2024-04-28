@@ -1,5 +1,9 @@
 ﻿using System;
 
+/*
+ * this class contains the logic for the genetic algorithm
+ * includes the crossover SelectTournament and mutation of the population of schedules
+ */
 public class GeneticAlgorithm
 {
     private readonly Data data;
@@ -19,11 +23,13 @@ public class GeneticAlgorithm
         return MutatePopulation(CrossoverPopulation(population));
     }
 
-    //Crossover takes two schedules from the best population and returns one mixed
+    //Crossover takes two schedules from the best population and returns one mixed. effected by crossover rate in main program
     public Population CrossoverPopulation(Population population)
     {
-        Population crossoverPopulation = new Population(population.Schedules.Size, data, rand);
-        crossoverPopulation.Schedules = new MyList<Schedules>(population.Schedules);
+        Population crossoverPopulation = new Population(population.Schedules.Size, data, rand)
+        {
+            Schedules = new MyList<Schedules>(population.Schedules)
+        };
 
         for (int x = MainProgram.NUM_OF_ELITE_SCHEDULES; x < population.Schedules.Size; x++)
         {
@@ -49,7 +55,7 @@ public class GeneticAlgorithm
         return crossoverSchedule;
     }
 
-    //Mutate Population of Schedules -> Randomly change one of the schedules
+    //Mutate Population of Schedules -> Randomly change one of the schedules. effected by mutation rate in main program
     public Population MutatePopulation(Population population)
     {
         Population mutatePopulation = new Population(population.Schedules.Size, data, rand);
