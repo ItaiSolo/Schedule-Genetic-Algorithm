@@ -2,7 +2,7 @@
 
 public class GeneticAlgorithm
 {
-    private Data data;
+    private readonly Data data;
     readonly Random rand;
     Schedules schedulePerent1;
     Schedules schedulePerent2;

@@ -4,7 +4,7 @@ public class Courses
     public string number = null;
     public string name = null;
     public int MaxNumberOfStudents { get; set; }
-    private MyList<Teachers> instructors;
+    private readonly MyList<Teachers> instructors;
     private static int counter = 0;
 
 

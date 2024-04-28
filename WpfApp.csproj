@@ -137,7 +137,7 @@
     <Compile Include="MVM\Model\Algorithm\Courses.cs" />
     <Compile Include="MVM\Model\Algorithm\Data.cs" />
     <Compile Include="MVM\Model\Algorithm\DateRange.cs" />
-    <Compile Include="MVM\Model\Algorithm\GeneticAlgo.cs" />
+    <Compile Include="MVM\Model\Algorithm\GeneticAlgorithm.cs" />
     <Compile Include="MVM\Model\Algorithm\MainProgram.cs" />
     <Compile Include="MVM\Model\Algorithm\MyList.cs" />
     <Compile Include="MVM\Model\Algorithm\Population.cs" />

@@ -14,9 +14,9 @@ namespace WpfApp
     public partial class SignIn : Page
     {
         // Connection string includes the server information, database name, user name, and password.
-        string connectionString = "server=database-3f.cbacig0a47uz.eu-north-1.rds.amazonaws.com;" +
+        readonly string connectionString = "server=database-3f.cbacig0a47uz.eu-north-1.rds.amazonaws.com;" +
                                   "user=admin;password=asdQWE123!^&*; database=try1;";
-        MySqlConnection connection;
+        readonly MySqlConnection connection;
         private string UserName;
         private string Password;
         private int userId;

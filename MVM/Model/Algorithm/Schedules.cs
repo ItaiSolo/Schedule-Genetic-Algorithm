@@ -3,12 +3,12 @@ using System.Text;
 
 public class Schedules
 {
-    private MyList<TimeCube> classes;// a list of all the time cubes in the schedule
+    private readonly MyList<TimeCube> classes;// a list of all the time cubes in the schedule
     private bool isFitnessChanged = true;
     private double fitness = -1;
     private int classNumb = 0;
     private int numbOfConflicts = 0;
-    private Data data;
+    private readonly Data data;
     public MyList<string> ConflictsList = new MyList<string>();
     //temp variables
     public TimeCube timeCubeX;

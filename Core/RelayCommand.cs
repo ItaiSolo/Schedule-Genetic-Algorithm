@@ -5,8 +5,8 @@ namespace WpfApp.Core
 {
     internal class RelayCommend : ICommand
     {
-        private Action<Object> _execute;
-        private Func<Object, bool> _canExecute; // <T>
+        private readonly Action<Object> _execute;
+        private readonly Func<Object, bool> _canExecute; // <T>
         public event EventHandler CanExecuteChanged
         {
             add

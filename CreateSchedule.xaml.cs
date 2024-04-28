@@ -16,11 +16,11 @@ namespace WpfApp
         static int CourseId = 1;
         bool isDayOfTheWeek = false;
         int MinValue = 0;
-        int MaxValueLimit = 500;
+        readonly int MaxValueLimit = 500;
         int MaxValue = 500;
         bool SubmitTeacher = false; //if false then it will submit the MeetingTimes
 
-        Dictionary<int, string> DaysOfWeek = new Dictionary<int, string>()
+        readonly Dictionary<int, string> DaysOfWeek = new Dictionary<int, string>()
         {
             { 1, "Sunday" },
             { 2, "Monday" },
@@ -31,7 +31,7 @@ namespace WpfApp
             { 7, "Saturday" }
         };
 
-        Dictionary<int, int> daysFix = new Dictionary<int, int>()
+        readonly Dictionary<int, int> daysFix = new Dictionary<int, int>()
         {
             { 1, 7 },
             { 2, 1 },
