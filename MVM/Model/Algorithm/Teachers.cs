@@ -9,8 +9,8 @@ public class Teachers
 
     public Teachers(string id, string name, MyList<DateRange> meetingTimesPerTeacher)
     {
-        this.Id = id;
-        this.Name = name;
+        Id = id;
+        Name = name;
         MeetingTimesPerTeacher = meetingTimesPerTeacher;
     }
 

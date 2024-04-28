@@ -223,7 +223,7 @@
     </EmbeddedResource>
     <None Include="bin\Release\WpfApp.exe.config" />
     <None Include="ClassDiagramWPF.cd" />
-    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagramAlgorithm.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

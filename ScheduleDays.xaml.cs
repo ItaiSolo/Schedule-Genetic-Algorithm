@@ -4,7 +4,7 @@ using System.Windows.Controls;
 
 namespace WpfApp
 {
-    //subclass ScheduleItem
+    //subclass ScheduleItem to store time and activity for each course
     public class ScheduleItem
     {
         public string Time { get; set; }
@@ -20,6 +20,7 @@ namespace WpfApp
     /// This class takes in a list of schedule items and displays them in a grid separated by days
     public partial class ScheduleDays : Page
     {
+        // declare the ObservableCollection for each day of the week 
         public ObservableCollection<ScheduleItem> SundaySchedule { get; set; } = new ObservableCollection<ScheduleItem>();
         public ObservableCollection<ScheduleItem> MondaySchedule { get; set; } = new ObservableCollection<ScheduleItem>();
         public ObservableCollection<ScheduleItem> TuesdaySchedule { get; set; } = new ObservableCollection<ScheduleItem>();
@@ -33,7 +34,7 @@ namespace WpfApp
             InitializeComponent();
         }
 
-        // Shows the full schedule based on the provided scheduleResult.
+        // Shows the full schedule by days based on the provided scheduleResult.
         public void ShowFull(MyList<ScheduleResult> scheduleResult)
         {
             SundaySchedule.Clear();

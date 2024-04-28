@@ -16,7 +16,7 @@ public class MyList<T> : IEnumerable<T>
     public MyList(int initialCapacity = 8)
     {
         if (initialCapacity < 1) initialCapacity = 1;
-        this.capacity = initialCapacity;
+        capacity = initialCapacity;
         data = new T[initialCapacity];
     }
 
@@ -137,11 +137,11 @@ public class MyList<T> : IEnumerable<T>
     {
         var newList = new MyList<T>()
         {
-            data = new T[this.data.Length],
+            data = new T[data.Length],
             size = this.size
         };
 
-        Array.Copy(this.data, newList.data, this.size);
+        Array.Copy(data, newList.data, size);
         return newList;
     }
 

@@ -3,7 +3,7 @@ public class Courses
 {
     public string number = null;
     public string name = null;
-    public int maxNumberOfStudents { get; set; }
+    public int MaxNumberOfStudents { get; set; }
     private MyList<Teachers> instructors;
     private static int counter = 0;
 
@@ -13,7 +13,7 @@ public class Courses
         this.number = number;
         this.name = name;
         this.instructors = instructors;
-        this.maxNumberOfStudents = maxNumbOfStudents;
+        MaxNumberOfStudents = maxNumbOfStudents;
         counter++;
     }
 
@@ -21,6 +21,6 @@ public class Courses
     public string GetNumber() { return number; }
     public string GetName() { return name; }
     public MyList<Teachers> GetInstructors() { return instructors; }
-    public int GetMaxNumbOfStudents() { return maxNumberOfStudents; }
+    public int GetMaxNumbOfStudents() { return MaxNumberOfStudents; }
     public override string ToString() { return name; }
 }

@@ -9,12 +9,11 @@ namespace WpfApp
     public partial class ShowSchedule : Page
     {
         MainProgram Program;
+        MyList<ScheduleResult> scheduleResult;
+        DateTime startTime;
         int Generation = 0;
         double Fitness = 0;
         int Conflicts = 0;
-
-        MyList<ScheduleResult> scheduleResult;
-        DateTime startTime;
 
         public ShowSchedule()
         {
