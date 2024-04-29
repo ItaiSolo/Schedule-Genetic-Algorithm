@@ -41,6 +41,7 @@ namespace WpfApp
                     Password = txtPass.Password;
                     btnLogin.Content = "Found";
                     StackPanel1.Visibility = Visibility.Hidden;
+                    InfoButton.Visibility = Visibility.Hidden;
                     inputStackPanel.Visibility = Visibility.Visible;
                     ScheduleLabel.Visibility = Visibility.Visible;
                     SignedText.Visibility = Visibility.Visible;
@@ -162,11 +163,12 @@ namespace WpfApp
         {
             var query = @"
                 SELECT save, save2,dateCreated FROM TempInfo
-                WHERE InfoID = @InfoId;";
+                WHERE InfoID = @InfoId and createdByUserId = @UserId;";
 
             using (var command = new MySqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@InfoId", currentScheduleId);
+                command.Parameters.AddWithValue("@UserId", userId);
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -206,6 +208,7 @@ namespace WpfApp
                 command.Parameters.AddWithValue("@Save2", jsonResultData);
 
                 int infoId = Convert.ToInt32(command.ExecuteScalar());
+                MessageBox.Show("Schedule saved successfully. Your schedule ID is " + infoId + " for UserName: " + UserName, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

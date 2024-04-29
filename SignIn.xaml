@@ -75,7 +75,7 @@
                     </StackPanel>
 
                     <!-- Label ScheduleLabel -->
-                    <TextBlock x:Name="ScheduleLabel" Grid.Row="1" Text="Number of schedule to load(if exists it will appear in- Info):" Background="AntiqueWhite"
+                    <TextBlock x:Name="ScheduleLabel" Grid.Row="1" Text="Number of schedule to load(if exists it will load instently):" Background="AntiqueWhite"
                         FontSize="18" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,27" Grid.RowSpan="3" Visibility="Hidden">
                     </TextBlock>
 

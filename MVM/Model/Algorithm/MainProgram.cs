@@ -12,7 +12,6 @@ public class MainProgram
     public const double BestFitness = 1;
     public const int BestConflicts = 0;
     public Random mainRand;//do not make it static it makes the algorithm worse
-    public static int scheduleNumb = 0;
     public int classNum = 1;
     public static Data data;
 

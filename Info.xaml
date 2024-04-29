@@ -50,7 +50,7 @@
         <DataGrid x:Name="DataGrid1" AutoGenerateColumns="False" IsReadOnly="True" Margin="10" FontSize="16" FontWeight="Bold" Grid.Row="1" Grid.Column="0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Available Courses " Binding="{Binding}"/>
-                <DataGridTextColumn Header="Number Of Students" Binding="{Binding maxNumberOfStudents}"/>
+                <DataGridTextColumn Header="Number Of Students" Binding="{Binding MaxNumberOfStudents}"/>
                 <DataGridTemplateColumn Header="Delete" Width="SizeToCells" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

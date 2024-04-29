@@ -39,11 +39,7 @@ namespace WpfApp
         //Saves the data to the database
         private void SaveData_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (MainWindow.SignInWindow.InsertNewSchedule(scheduleResult, MainProgram.data)) // send to database/signIn window
-            {
-                MessageBox.Show("Saved Successfully");
-            }
-            else
+            if (!MainWindow.SignInWindow.InsertNewSchedule(scheduleResult, MainProgram.data)) // send to database/signIn window
             {
                 MessageBox.Show("Error Saving Data");
             }
