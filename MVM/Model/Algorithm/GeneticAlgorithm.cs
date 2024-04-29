@@ -7,8 +7,8 @@
 public class GeneticAlgorithm
 {
     readonly Random rand;
-    Schedules schedulePerent1;
-    Schedules schedulePerent2;
+    Schedules scheduleParent1;
+    Schedules scheduleParent2;
     MyList<Schedules> TempSchedules;
     public GeneticAlgorithm(Random mainRand)
     {
@@ -33,9 +33,9 @@ public class GeneticAlgorithm
         {
             if (MainProgram.CROSSOVER_RATE > rand.NextDouble())
             {
-                schedulePerent1 = SelectTournamentPopulation(population).Schedules.GetAt(0);
-                schedulePerent2 = SelectTournamentPopulation(population).Schedules.GetAt(0);
-                crossoverPopulation.Schedules.SetAt(CrossoverSchedule(schedulePerent1, schedulePerent2), x);
+                scheduleParent1 = SelectTournamentPopulation(population).Schedules.GetAt(0);
+                scheduleParent2 = SelectTournamentPopulation(population).Schedules.GetAt(0);
+                crossoverPopulation.Schedules.SetAt(CrossoverSchedule(scheduleParent1, scheduleParent2), x);
             }
         }
         return crossoverPopulation;
@@ -44,7 +44,7 @@ public class GeneticAlgorithm
     //Crossover per Schedule
     private Schedules CrossoverSchedule(Schedules schedule1, Schedules schedule2)
     {
-        Schedules crossoverSchedule = new Schedules().Initialize(rand);//problem line
+        Schedules crossoverSchedule = new Schedules().Initialize(rand);
 
         for (int x = 0; x < crossoverSchedule.Classes.Size; x++)
         {

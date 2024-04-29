@@ -5,8 +5,7 @@ public class Teachers
 {
     public string Id { get; set; }
     public string Name { get; set; }
-    private MyList<DateRange> MeetingTimesPerTeacher;// gets data prom page2
-    public MyList<string> MeetingTimesPerTeacherString;
+    public  MyList<DateRange> MeetingTimesPerTeacher { get; set; }// gets data prom "CreateSchedule"
 
     public Teachers(string id, string name, MyList<DateRange> meetingTimesPerTeacher)
     {

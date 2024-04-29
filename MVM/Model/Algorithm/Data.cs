@@ -6,12 +6,12 @@
 
 public class Data
 {
-    public MyList<Classrooms> Rooms { get;  set; }
-    public MyList<Teachers> Instructors { get;  set; } // Instructor == Teacher
-    public MyList<Teachers> InstructorsPerCourse { get;  set; } //temp
-    public MyList<DateRange> MeetingTimesPerTeacher { get; set; }//temp
-    public MyList<Courses> Courses1 { get; set; }
-    public MyList<DateRange> MeetingTimes { get; set; }
+    public MyList<Classrooms> Rooms { get; private set; }
+    public MyList<Teachers> Instructors { get; private set; } // Instructor == Teacher
+    public MyList<Teachers> InstructorsPerCourse { get; private set; }
+    public MyList<DateRange> MeetingTimesPerTeacher { get; private set; }
+    public MyList<Courses> Courses1 { get; private set; }
+    public MyList<DateRange> MeetingTimes { get; private set; }
 
 
     public Data()
@@ -22,17 +22,14 @@ public class Data
     public Data Initialize()
     {
         // Initialize rooms
+
         Rooms = new MyList<Classrooms>();
         MeetingTimes = new MyList<DateRange>();
         Instructors = new MyList<Teachers>();
         InstructorsPerCourse = new MyList<Teachers>();
         MeetingTimesPerTeacher = new MyList<DateRange>();
         Courses1 = new MyList<Courses>();
-        return this;
-    }
 
-    public void AddTempData()
-    {
         //delete all later -----------------------------------
         //all from here is not needed
         var a = new Classrooms("R1", 25);
@@ -114,5 +111,6 @@ public class Data
         Courses1.Add(new Courses("C5", "360C", new MyList<Teachers> { Instructors.GetAt(3) }, 35));
         Courses1.Add(new Courses("C6", "303K", new MyList<Teachers> { Instructors.GetAt(0), Instructors.GetAt(2) }, 45));
         Courses1.Add(new Courses("C7", "303L", new MyList<Teachers> { Instructors.GetAt(1), Instructors.GetAt(3) }, 45));
+        return this;
     }
 }

@@ -51,7 +51,7 @@ public class Schedules
         }
     }
 
-    //calculate fitness of schedule accurding to number of conflicts
+    //calculate fitness of schedule according to number of conflicts
     private double CalculateFitness()
     {
         numbOfConflicts = 0;
@@ -143,7 +143,7 @@ public class Schedules
         {
             for (int i = 0; i < MainProgram.data.Courses1.Size; i++)
             {
-                courseTemp = MainProgram.data.Courses1.GetAt(i);//passess every course
+                courseTemp = MainProgram.data.Courses1.GetAt(i);//passes every course
                 var newClass = new TimeCube(classNumb++, courseTemp);
                 newClass.SetMeetingTime(MainProgram.data.MeetingTimes.GetAt((int)(MainProgram.data.MeetingTimes.Size * rand.NextDouble())));
                 newClass.SetRoom(MainProgram.data.Rooms.GetAt((int)(MainProgram.data.Rooms.Size * rand.NextDouble())));

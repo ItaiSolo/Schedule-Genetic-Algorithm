@@ -9,6 +9,7 @@ namespace WpfApp
     /// <summary>
     /// This class represents the data in the system, that is used by the algorithms and shown in the UI.
     /// </summary>
+    ///  <DataGridTextColumn Header="Available Times" Binding="{Binding MeetingTimesPerTeacher}"/>
     public partial class Info : Page
     {
         private ICollectionView view1 = null;
@@ -34,16 +35,7 @@ namespace WpfApp
 
             DataGrid1.ItemsSource = data.Courses1;
             DataGrid2.ItemsSource = data.Rooms;
-            /*
-            foreach (var teacher in data.Instructors)
-            {
-                string temp = "";
-                foreach (var meetingTime in teacher.GetMeetingTimesPerTeacher())
-                    temp += meetingTime.ToString() + "\n";
-                MeetingTimesPerTeacherString.Add(temp);
-
-            }
-            */
+           
             DataGrid3.ItemsSource = data.Instructors;
             DataGrid4.ItemsSource = data.MeetingTimes;
 

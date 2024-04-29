@@ -1,11 +1,11 @@
 ﻿/*
- * This class holds the classroom information like room id and seating capacity
- */
+* This class holds the classroom information like room id and seating capacity
+*/
 
 public class Classrooms
 {
-    public string RoomId { get; set; }
-    public int SeatingCapacity { get; set; }
+    public string RoomId { get; private set; }
+    public int SeatingCapacity { get; private set; }
 
     public Classrooms(string number, int seatingCapacity)
     {
