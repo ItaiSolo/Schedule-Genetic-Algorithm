@@ -11,25 +11,24 @@ public class MainProgram
     public const int MaxIteretions = 2000;
     public const double BestFitness = 1;
     public const int BestConflicts = 0;
-    public Random mainRand;
+    public static Random mainRand;
     public static int scheduleNumb = 0;
     public int classNum = 1;
-    public Data data;
+    public static Data data;
 
     //Run the genetic algorithm according to the data,constraints and number of iterations
     //returns a list of schedule results
-    public MyList<ScheduleResult> MainRun(MainProgram Program)
+    public MyList<ScheduleResult> MainRun()
     {
-        if (Program == null) return null;
         mainRand = new Random();
 
         MyList<ScheduleResult> scheduleResultList = new MyList<ScheduleResult>();
 
         int generationNumber = 0;
-        var geneticAlgorithm = new GeneticAlgorithm(Program.data, mainRand);
-        var population = new Population(POPULATION_SIZE, Program.data, mainRand);
+        var geneticAlgorithm = new GeneticAlgorithm(mainRand);
+        var population = new Population(POPULATION_SIZE, mainRand);
 
-        Program.classNum = 1;
+        classNum = 1;
         if (population.Schedules.GetAt(0) == null) return null;
 
         // Initialize fitness and conflict values

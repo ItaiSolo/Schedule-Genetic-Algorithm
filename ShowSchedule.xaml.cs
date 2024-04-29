@@ -8,7 +8,6 @@ namespace WpfApp
 {
     public partial class ShowSchedule : Page
     {
-        MainProgram Program;
         MyList<ScheduleResult> scheduleResult;
         DateTime startTime;
         int Generation = 0;
@@ -25,9 +24,8 @@ namespace WpfApp
         {
             startTime = DateTime.Now;
 
-            this.Program = Program;
             // Load data into the DataGrid
-            scheduleResult = Program.MainRun(Program);
+            scheduleResult = Program.MainRun();
             if (scheduleResult != null)
             {
                 ShowResult(scheduleResult, true);
@@ -41,7 +39,7 @@ namespace WpfApp
         //Saves the data to the database
         private void SaveData_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (MainWindow.SignInWindow.InsertNewSchedule(scheduleResult, Program.data)) // send to database/signIn window
+            if (MainWindow.SignInWindow.InsertNewSchedule(scheduleResult, MainProgram.data)) // send to database/signIn window
             {
                 MessageBox.Show("Saved Successfully");
             }

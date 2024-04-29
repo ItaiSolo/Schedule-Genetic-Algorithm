@@ -7,13 +7,13 @@ public class Population
     public MyList<Schedules> Schedules { get; set; }
 
     //init the population with random schedules
-    public Population(int size, Data data, Random rand)
+    public Population(int size, Random rand)
     {
         Schedules = new MyList<Schedules>(size);
 
         for (int i = 0; i < size; i++)
         {
-            Schedules.Add(new Schedules(data).Initialize(rand));
+            Schedules.Add(new Schedules().Initialize(rand));
         }
     }
 

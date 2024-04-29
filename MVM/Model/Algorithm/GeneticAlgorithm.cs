@@ -6,14 +6,12 @@
  */
 public class GeneticAlgorithm
 {
-    private readonly Data data;
     readonly Random rand;
     Schedules schedulePerent1;
     Schedules schedulePerent2;
     MyList<Schedules> TempSchedules;
-    public GeneticAlgorithm(Data data, Random mainRand)
+    public GeneticAlgorithm(Random mainRand)
     {
-        this.data = data;
         rand = mainRand;
     }
 
@@ -26,7 +24,7 @@ public class GeneticAlgorithm
     //Crossover takes two schedules from the best population and returns one mixed. effected by crossover rate in main program
     public Population CrossoverPopulation(Population population)
     {
-        Population crossoverPopulation = new Population(population.Schedules.Size, data, rand)
+        Population crossoverPopulation = new Population(population.Schedules.Size, rand)
         {
             Schedules = new MyList<Schedules>(population.Schedules)
         };
@@ -46,7 +44,7 @@ public class GeneticAlgorithm
     //Crossover per Schedule
     private Schedules CrossoverSchedule(Schedules schedule1, Schedules schedule2)
     {
-        Schedules crossoverSchedule = new Schedules(data).Initialize(rand);//problem line
+        Schedules crossoverSchedule = new Schedules().Initialize(rand);//problem line
 
         for (int x = 0; x < crossoverSchedule.Classes.Size; x++)
         {
@@ -58,7 +56,7 @@ public class GeneticAlgorithm
     //Mutate Population of Schedules -> Randomly change one of the schedules. effected by mutation rate in main program
     public Population MutatePopulation(Population population)
     {
-        Population mutatePopulation = new Population(population.Schedules.Size, data, rand);
+        Population mutatePopulation = new Population(population.Schedules.Size, rand);
         TempSchedules = mutatePopulation.Schedules;
         for (int x = 0; x < MainProgram.NUM_OF_ELITE_SCHEDULES; x++)
         {
@@ -75,7 +73,7 @@ public class GeneticAlgorithm
     //Mutate on Schedules -> Randomly change one of the classes
     public Schedules MutateSchedule(Schedules schedule)
     {
-        Schedules mutateSchedule = new Schedules(data).Initialize(rand);
+        Schedules mutateSchedule = new Schedules().Initialize(rand);
 
         for (int x = 0; x < mutateSchedule.Classes.Size; x++)
         {
@@ -90,7 +88,7 @@ public class GeneticAlgorithm
     //Select Tournament Population -> Randomly select schedules from the population
     public Population SelectTournamentPopulation(Population population)
     {
-        Population tournamentPopulation = new Population(MainProgram.TOURNAMENT_SELECTION_SIZE, data, rand);
+        Population tournamentPopulation = new Population(MainProgram.TOURNAMENT_SELECTION_SIZE, rand);
         for (int x = 0; x < MainProgram.TOURNAMENT_SELECTION_SIZE; x++)
         {
             int randomIndex = rand.Next(population.Schedules.Size);

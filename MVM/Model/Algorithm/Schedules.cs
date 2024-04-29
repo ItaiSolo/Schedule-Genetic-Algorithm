@@ -8,15 +8,13 @@ public class Schedules
     private double fitness = -1;
     private int classNumb = 0;
     private int numbOfConflicts = 0;
-    private readonly Data data;
     public MyList<string> ConflictsList = new MyList<string>();
-    
+
     public TimeCube timeCubeX;
     public Courses courseTemp;
 
-    public Schedules(Data data)
+    public Schedules()
     {
-        this.data = data;
         classes = new MyList<TimeCube>(Courses.GetCounter());
     }
 
@@ -143,12 +141,12 @@ public class Schedules
     {
         try
         {
-            for (int i = 0; i < data.Courses1.Size; i++)
+            for (int i = 0; i < MainProgram.data.Courses1.Size; i++)
             {
-                courseTemp = data.Courses1.GetAt(i);//passess every course
+                courseTemp = MainProgram.data.Courses1.GetAt(i);//passess every course
                 var newClass = new TimeCube(classNumb++, courseTemp);
-                newClass.SetMeetingTime(data.MeetingTimes.GetAt((int)(data.MeetingTimes.Size * rand.NextDouble())));
-                newClass.SetRoom(data.Rooms.GetAt((int)(data.Rooms.Size * rand.NextDouble())));
+                newClass.SetMeetingTime(MainProgram.data.MeetingTimes.GetAt((int)(MainProgram.data.MeetingTimes.Size * rand.NextDouble())));
+                newClass.SetRoom(MainProgram.data.Rooms.GetAt((int)(MainProgram.data.Rooms.Size * rand.NextDouble())));
                 newClass.SetInstructor(courseTemp.GetInstructors().GetAt((int)(courseTemp.GetInstructors().Size * rand.NextDouble())));
                 classes.Add(newClass);
             }

@@ -53,7 +53,7 @@ namespace WpfApp
         public CreateSchedule()
         {
             InitializeComponent();
-            Program.data = new Data(); // this initializes your data correctly         
+            MainProgram.data = new Data(); // this initializes your data correctly         
         }
 
         // increase and decrease the number in the box
@@ -101,7 +101,7 @@ namespace WpfApp
                     {
                         ChangeColorS(sender, e);
                         var temp = new Classrooms(stringInput1.Text, seats);//add input exampele
-                        Program.data.Rooms.Add(temp);
+                        MainProgram.data.Rooms.Add(temp);
                         seatsInput.Text = "0";
                     }
                     else ChangeColorF(sender, e);
@@ -133,7 +133,7 @@ namespace WpfApp
 
 
                         //add insertion 
-                        Program.data.MeetingTimes.Add(new DateRange(range1Start, range1End, 1));
+                        MainProgram.data.MeetingTimes.Add(new DateRange(range1Start, range1End, 1));
 
                         dayLabel.Visibility = Visibility.Visible;
                         seatsInput.Text = "1";
@@ -147,32 +147,32 @@ namespace WpfApp
                     // adds the meeting time per teacher
                     ShowSelectionBox();
 
-                    if (stringInput1.Text.Length > 0 && !Program.data.MeetingTimesPerTeacher.IsEmpty)
+                    if (stringInput1.Text.Length > 0 && !MainProgram.data.MeetingTimesPerTeacher.IsEmpty)
                     {
                         ChangeColorS(sender, e);
-                        Program.data.Instructors.Add(new Teachers(TeachersId.ToString(), stringInput1.Text, Program.data.MeetingTimesPerTeacher.Copy()));
+                        MainProgram.data.Instructors.Add(new Teachers(TeachersId.ToString(), stringInput1.Text, MainProgram.data.MeetingTimesPerTeacher.Copy()));
                         TeachersId++;
-                        Program.data.MeetingTimesPerTeacher.Clear();
+                        MainProgram.data.MeetingTimesPerTeacher.Clear();
                     }
                     else ChangeColorF(sender, e);
                     break;
 
                 case 3:
                     //Courses insertion
-                    if (stringInput1.Text.Length > 0 && int.TryParse(seatsInput.Text, out seats) && !Program.data.InstructorsPerCourse.IsEmpty)
+                    if (stringInput1.Text.Length > 0 && int.TryParse(seatsInput.Text, out seats) && !MainProgram.data.InstructorsPerCourse.IsEmpty)
                     {
                         ChangeColorS(sender, e);
 
-                        Program.data.Courses1.Add(new Courses(CourseId.ToString(),
-                        stringInput1.Text, Program.data.InstructorsPerCourse.Copy(), seats));
+                        MainProgram.data.Courses1.Add(new Courses(CourseId.ToString(),
+                        stringInput1.Text, MainProgram.data.InstructorsPerCourse.Copy(), seats));
                         seatsInput.Text = "0";
-                        Program.data.InstructorsPerCourse.Clear();
+                        MainProgram.data.InstructorsPerCourse.Clear();
                         CourseId++;
                     }
                     else ChangeColorF(sender, e);
                     break;
             }
-            MainWindow.showData.UpdateData(Program.data);// update desplay data in Info
+            MainWindow.showData.UpdateData(MainProgram.data);// update desplay data in Info
             stringInput1.Text = "";
         }
 
@@ -319,9 +319,9 @@ namespace WpfApp
                     ChangeColorF(sender, e);
                     return;
                 }
-                if (!Program.data.InstructorsPerCourse.Contains(Program.data.Instructors.GetAt(selectedIndex)))
+                if (!MainProgram.data.InstructorsPerCourse.Contains(MainProgram.data.Instructors.GetAt(selectedIndex)))
                 {
-                    Program.data.InstructorsPerCourse.Add(Program.data.Instructors.GetAt(selectedIndex));
+                    MainProgram.data.InstructorsPerCourse.Add(MainProgram.data.Instructors.GetAt(selectedIndex));
                     ChangeColorS(sender, e);
                 }
                 else
@@ -343,9 +343,9 @@ namespace WpfApp
                 ChangeColorF(sender, e);
                 return;
             }
-            if (!Program.data.MeetingTimesPerTeacher.Contains(Program.data.MeetingTimes.GetAt(selectedIndex)))
+            if (!MainProgram.data.MeetingTimesPerTeacher.Contains(MainProgram.data.MeetingTimes.GetAt(selectedIndex)))
             {
-                Program.data.MeetingTimesPerTeacher.Add(Program.data.MeetingTimes.GetAt(selectedIndex));
+                MainProgram.data.MeetingTimesPerTeacher.Add(MainProgram.data.MeetingTimes.GetAt(selectedIndex));
                 ChangeColorS(sender, e);
             }
             else
@@ -359,7 +359,7 @@ namespace WpfApp
             if (SubmitTeacher)
             {
                 comboBox1.Items.Clear(); // Clear existing items
-                foreach (var instructor in Program.data.Instructors)
+                foreach (var instructor in MainProgram.data.Instructors)
                 {
                     comboBox1.Items.Add(instructor); // Add items one by one
                 }
@@ -373,7 +373,7 @@ namespace WpfApp
         private void MenuOpenedMeetingTimes(object sender, System.Windows.Input.MouseEventArgs e)
         {
             comboBox1.Items.Clear(); // Clear existing items
-            foreach (var Time in Program.data.MeetingTimes)
+            foreach (var Time in MainProgram.data.MeetingTimes)
             {
                 comboBox1.Items.Add(Time); // Add items one by one
             }
@@ -423,8 +423,8 @@ namespace WpfApp
         // update desplay data in Info Page and Data class
         public void UpdateDataSQL(Data newData)
         {
-            Program.data = newData;
-            MainWindow.showData.UpdateData(Program.data);
+            MainProgram.data = newData;
+            MainWindow.showData.UpdateData(MainProgram.data);
         }
 
         private void InfoClicked(object sender, RoutedEventArgs e)
@@ -434,19 +434,19 @@ namespace WpfApp
             {
                 case 0:
                     stringExplain = "In this page you can choose the number of seats per class. Insert all the available classrooms and their seating capacity or add them later";
-                break;
+                    break;
 
                 case 1:
-                stringExplain = "In this page you can choose the day of the week and the time ranges. Insert all the available time ranges or add them later";
-                break;
+                    stringExplain = "In this page you can choose the day of the week and the time ranges. Insert all the available time ranges or add them later";
+                    break;
 
                 case 2:
-                stringExplain =  " In this page you can assign the teachers and their available time ranges. Insert all the available teachers or add them later";
-                break;
+                    stringExplain = " In this page you can assign the teachers and their available time ranges. Insert all the available teachers or add them later";
+                    break;
 
                 case 3:
                     stringExplain = "In this page you can assign the capacity, name and teachers per each course";
-                break;
+                    break;
 
                 default:
                     break;
