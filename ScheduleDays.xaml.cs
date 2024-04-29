@@ -91,7 +91,7 @@ namespace WpfApp
         private ScheduleItem AddItem(string[] times, ScheduleResult item)
         {
             return new ScheduleItem(string.Join(" ", times.Skip(1)),
-                " Course: " + item.Courses + " Room: " + item.Rooms + " Instructor: " + item.Instructors);
+                " Course: " + item.Courses + " | Room: " + item.Rooms + " | Instructor: " + item.Instructors);
 
         }
     }

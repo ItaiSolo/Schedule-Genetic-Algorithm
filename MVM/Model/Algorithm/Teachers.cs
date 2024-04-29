@@ -5,7 +5,8 @@ public class Teachers
 {
     public string Id { get; set; }
     public string Name { get; set; }
-    private readonly MyList<DateRange> MeetingTimesPerTeacher;// gets data prom page2
+    private MyList<DateRange> MeetingTimesPerTeacher;// gets data prom page2
+    public MyList<string> MeetingTimesPerTeacherString;
 
     public Teachers(string id, string name, MyList<DateRange> meetingTimesPerTeacher)
     {

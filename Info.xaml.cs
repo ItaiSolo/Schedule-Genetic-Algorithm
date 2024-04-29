@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -6,7 +7,7 @@ using System.Windows.Data;
 namespace WpfApp
 {
     /// <summary>
-    /// Interaction logic for Info.xaml
+    /// This class represents the data in the system, that is used by the algorithms and shown in the UI.
     /// </summary>
     public partial class Info : Page
     {
@@ -14,7 +15,9 @@ namespace WpfApp
         private ICollectionView view2 = null;
         private ICollectionView view3 = null;
         private ICollectionView view4 = null;
-        Data Data;
+        public ObservableCollection<string> MeetingTimesPerTeacherString { get; set; }
+
+
         public Info()
         {
             InitializeComponent();
@@ -23,7 +26,7 @@ namespace WpfApp
         //Refreshes the data in the DataGrid in the UI - Info 
         public void UpdateData(Data data)
         {
-            Data = data;
+            MainProgram.data = data;
             view1 = CollectionViewSource.GetDefaultView(data.Courses1);
             view2 = CollectionViewSource.GetDefaultView(data.Rooms);
             view3 = CollectionViewSource.GetDefaultView(data.Instructors);
@@ -31,6 +34,16 @@ namespace WpfApp
 
             DataGrid1.ItemsSource = data.Courses1;
             DataGrid2.ItemsSource = data.Rooms;
+            /*
+            foreach (var teacher in data.Instructors)
+            {
+                string temp = "";
+                foreach (var meetingTime in teacher.GetMeetingTimesPerTeacher())
+                    temp += meetingTime.ToString() + "\n";
+                MeetingTimesPerTeacherString.Add(temp);
+
+            }
+            */
             DataGrid3.ItemsSource = data.Instructors;
             DataGrid4.ItemsSource = data.MeetingTimes;
 
@@ -45,8 +58,8 @@ namespace WpfApp
         {
             var button = sender as Button;
             var item = button.DataContext;
-            Data.Courses1.Delete(item as Courses);
-            DataGrid1.ItemsSource = Data.Courses1;
+            MainProgram.data.Courses1.Delete(item as Courses);
+            DataGrid1.ItemsSource = MainProgram.data.Courses1;
             view1.Refresh();
         }
 
@@ -54,8 +67,8 @@ namespace WpfApp
         {
             var button = sender as Button;
             var item = button.DataContext;
-            Data.Rooms.Delete(item as Classrooms);
-            DataGrid2.ItemsSource = Data.Rooms;
+            MainProgram.data.Rooms.Delete(item as Classrooms);
+            DataGrid2.ItemsSource = MainProgram.data.Rooms;
             view2.Refresh();
         }
 
@@ -63,16 +76,16 @@ namespace WpfApp
         {
             var button = sender as Button;
             var item = button.DataContext;
-            Data.Instructors.Delete(item as Teachers);
-            DataGrid3.ItemsSource = Data.Instructors;
+            MainProgram.data.Instructors.Delete(item as Teachers);
+            DataGrid3.ItemsSource = MainProgram.data.Instructors;
             view3.Refresh();
         }
         private void DeleteMeetingTime(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
             var item = button.DataContext;
-            Data.MeetingTimes.Delete(item as DateRange);
-            DataGrid4.ItemsSource = Data.MeetingTimes;
+            MainProgram.data.MeetingTimes.Delete(item as DateRange);
+            DataGrid4.ItemsSource = MainProgram.data.MeetingTimes;
             view4.Refresh();
         }
 

@@ -2,13 +2,13 @@
 
 public class MainProgram
 {
-    //initialize constraints/ consts
+    //initialize constraints/ constants
     public const int POPULATION_SIZE = 150;
     public const double MUTATION_RATE = 0.2;
     public const double CROSSOVER_RATE = 0.9;
     public const int TOURNAMENT_SELECTION_SIZE = 3;
     public const int NUM_OF_ELITE_SCHEDULES = 2;
-    public const int MaxIteretions = 2000;
+    public const int MaxIterations = 2000;
     public const double BestFitness = 1;
     public const int BestConflicts = 0;
     public Random mainRand;//do not make it static it makes the algorithm worse
@@ -34,7 +34,7 @@ public class MainProgram
         double currentBestFitness = population.Schedules.GetAt(0).Fitness;
         int currentBestConflicts = population.Schedules.GetAt(0).NumbOfConflicts;
 
-        while (currentBestFitness != BestFitness && generationNumber < MaxIteretions - 1 && currentBestConflicts > BestConflicts)
+        while (currentBestFitness != BestFitness && generationNumber < MaxIterations - 1 && currentBestConflicts > BestConflicts)
         {
             population = geneticAlgorithm.EvolvePopulation(population);
             population.SortSchedulesByFitness(); // Sort only after evolution
@@ -44,7 +44,7 @@ public class MainProgram
             generationNumber++;
 
         }
-        if (generationNumber == MaxIteretions - 1)
+        if (generationNumber == MaxIterations - 1)
         {
             population = geneticAlgorithm.EvolvePopulation(population);
             population.SortSchedulesByFitnessLast(); // Sort only after evolution

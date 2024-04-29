@@ -22,7 +22,7 @@ namespace WpfApp
 
         readonly Dictionary<int, string> DaysOfWeek = new Dictionary<int, string>()
         {
-            { 1, "Sunday" },
+            { 1, "Sunday" },//show in info the times of each teacher| 
             { 2, "Monday" },
             { 3, "Tuesday" },
             { 4, "Wednesday" },
@@ -100,7 +100,7 @@ namespace WpfApp
                     if (stringInput1.Text.Length > 1 && int.TryParse(seatsInput.Text, out seats) && seats > 0)
                     {
                         ChangeColorS(sender, e);
-                        var temp = new Classrooms(stringInput1.Text, seats);//add input exampele
+                        var temp = new Classrooms(stringInput1.Text, seats);
                         MainProgram.data.Rooms.Add(temp);
                         seatsInput.Text = "0";
                     }
@@ -133,11 +133,15 @@ namespace WpfApp
 
 
                         //add insertion 
-                        MainProgram.data.MeetingTimes.Add(new DateRange(range1Start, range1End, 1));
+                        if(checkDuplicateTimes(range1Start, range1End))
+                        {
+                            MainProgram.data.MeetingTimes.Add(new DateRange(range1Start, range1End, 1));
 
-                        dayLabel.Visibility = Visibility.Visible;
-                        seatsInput.Text = "1";
-                        isDayOfTheWeek = true;
+                            dayLabel.Visibility = Visibility.Visible;
+                            seatsInput.Text = "1";
+                            dayLabel.Text = "Sunday";
+                            isDayOfTheWeek = true;
+                        }
                     }
                     else ChangeColorF(sender, e);
                     break;
@@ -172,8 +176,17 @@ namespace WpfApp
                     else ChangeColorF(sender, e);
                     break;
             }
-            MainWindow.showData.UpdateData(MainProgram.data);// update desplay data in Info
+            MainWindow.showData.UpdateData(MainProgram.data);// update display data in Info
             stringInput1.Text = "";
+        }
+
+        private bool checkDuplicateTimes(DateTime range1Start, DateTime range1End)
+        {
+            foreach (var item in MainProgram.data.MeetingTimes)
+            {
+                if (item.Start == range1Start && item.End == range1End) return false;
+            }
+            return true;
         }
 
         private void Next_Click(object sender, RoutedEventArgs e) // move to next input
@@ -199,7 +212,7 @@ namespace WpfApp
                     break;
                 case 2:
                     SubmitListButton.Content = "Submit Times";
-                    SubmitTeacher = false;//thats for the meeting times
+                    SubmitTeacher = false;//that's for the meeting times
                     HideCounter();
                     ShowSelectionBox();
                     instructionLabel.Text = "Enter Instructor Name example: John Doe";
@@ -217,7 +230,6 @@ namespace WpfApp
                     break;
 
                 case 4:
-
                     HideCounter();
                     HideSelectionBox();
                     stringInput1.Visibility = Visibility.Hidden;
@@ -380,7 +392,7 @@ namespace WpfApp
         }
 
 
-        public void ChangeColorS(object sender, RoutedEventArgs e) // Change the color of the button is Seccssesful
+        public void ChangeColorS(object sender, RoutedEventArgs e) // Change the color of the button is Successful
         {
             Button button = sender as Button;
             if (button != null)
@@ -390,7 +402,7 @@ namespace WpfApp
 
                 // Create and start a timer to revert the color back
                 DispatcherTimer timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromSeconds(0.5); // Set the time after which the color should revert
+                timer.Interval = TimeSpan.FromSeconds(0.3); // Set the time after which the color should revert
                 timer.Tick += (s, args) =>
                 {
                     button.Background = new SolidColorBrush(Colors.DodgerBlue); // Revert to original color
@@ -410,7 +422,7 @@ namespace WpfApp
 
                 // Create and start a timer to revert the color back
                 DispatcherTimer timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromSeconds(0.5); // Set the time after which the color should revert
+                timer.Interval = TimeSpan.FromSeconds(0.3); // Set the time after which the color should revert
                 timer.Tick += (s, args) =>
                 {
                     button.Background = new SolidColorBrush(Colors.DodgerBlue); // Revert to original color
@@ -420,7 +432,7 @@ namespace WpfApp
             }
         }
 
-        // update desplay data in Info Page and Data class
+        // update display data in Info Page and Data class
         public void UpdateDataSQL(Data newData)
         {
             MainProgram.data = newData;

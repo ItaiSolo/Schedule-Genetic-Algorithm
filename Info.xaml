@@ -82,6 +82,7 @@
         <DataGrid x:Name="DataGrid3" AutoGenerateColumns="False" IsReadOnly="True" Margin="10" FontSize="16" FontWeight="Bold" Grid.Row="2" Grid.Column="0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Available Instructors" Binding="{Binding}"/>
+                <DataGridTextColumn Header="Available Times" Binding="{Binding MeetingTimesPerTeacher}"/>
                 <DataGridTemplateColumn Header="Delete" Width="SizeToCells" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

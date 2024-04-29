@@ -117,7 +117,7 @@ namespace WpfApp
             }
         }
 
-        //increase and decrease the ID of the loaded schedule and calles "LoadSchedule"
+        //increase and decrease the ID of the loaded schedule and calls "LoadSchedule"
         private void IncreaseId_Click(object sender, RoutedEventArgs e)
         {
             if (int.TryParse(seatsInput.Text, out int currentValue))
@@ -141,7 +141,7 @@ namespace WpfApp
             }
         }
 
-        //inserts the schedule into the database calles "SaveDataSchedule" for the insertion in MySql
+        //inserts the schedule into the database calls "SaveDataSchedule" for the insertion in MySql
         public bool InsertNewSchedule(MyList<ScheduleResult> result, Data data)
         {
             using (var transaction = connection.BeginTransaction())

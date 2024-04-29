@@ -4,8 +4,8 @@
 
 public class Classrooms
 {
-    public string RoomId { get; private set; }
-    public int SeatingCapacity { get; private set; }
+    public string RoomId { get; set; }
+    public int SeatingCapacity { get; set; }
 
     public Classrooms(string number, int seatingCapacity)
     {
