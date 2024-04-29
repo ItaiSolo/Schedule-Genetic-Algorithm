@@ -426,5 +426,37 @@ namespace WpfApp
             Program.data = newData;
             MainWindow.showData.UpdateData(Program.data);
         }
+
+        private void InfoClicked(object sender, RoutedEventArgs e)
+        {
+            string stringExplain = "";
+            switch (nextTimes)
+            {
+                case 0:
+                    stringExplain = "In this page you can choose the number of seats per class. Insert all the available classrooms and their seating capacity or add them later";
+                break;
+
+                case 1:
+                stringExplain = "In this page you can choose the day of the week and the time ranges. Insert all the available time ranges or add them later";
+                break;
+
+                case 2:
+                stringExplain =  " In this page you can assign the teachers and their available time ranges. Insert all the available teachers or add them later";
+                break;
+
+                case 3:
+                    stringExplain = "In this page you can assign the capacity, name and teachers per each course";
+                break;
+
+                default:
+                    break;
+            }
+            MessageBoxResult result = MessageBox.Show(stringExplain +
+                          " click Yes to see the full documentation", "Information", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                System.Diagnostics.Process.Start("https://docs.google.com/document/d/1-gEMkTd8JQxsS0qG9tEmxP3307A95BpPU-DL_9jQS70/view?pli=1#heading=h.nv0s9cpso0p5");
+            }
+        }
     }
 }

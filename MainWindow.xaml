@@ -130,5 +130,6 @@
             <TextBlock Text="-" Foreground="Black" FontSize="48" Grid.Column="1" Margin="761,-13,-781,75" Panel.ZIndex="1" IsEnabled="False" IsHitTestVisible="False" />
             <TextBlock Text="Made By Itay Solomon" Foreground="Orange" Height="20" Margin="8,85,8,5" FontFamily="BN Elkana" FontSize="16" FontWeight="Bold"/>
         </Grid>
+        
     </Border>
 </Window>

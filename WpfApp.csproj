@@ -229,7 +229,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -264,7 +263,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Release\BouncyCastle.Cryptography.dll" />
-    <Resource Include="LICENSE.txt" />
+    <Resource Include="Images\info_icon.png" />
     <Resource Include="bin\Release\BouncyCastle.Cryptography.xml" />
     <Content Include="bin\Release\Google.Protobuf.dll" />
     <Content Include="bin\Release\Google.Protobuf.pdb" />

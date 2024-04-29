@@ -78,7 +78,7 @@
                     <TextBlock x:Name="ScheduleLabel" Grid.Row="1" Text="Number of schedule to load(if exists it will appear in- Info):" Background="AntiqueWhite"
                         FontSize="18" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,27" Grid.RowSpan="3" Visibility="Hidden">
                     </TextBlock>
-                    
+
                     <TextBlock x:Name="SignedText" Text="Signed Successfully"
                         Foreground="LightGray"
                         FontSize="18"
@@ -86,7 +86,7 @@
                         FontFamily="Montserrat"
                         TextWrapping="Wrap"
                         TextAlignment="Center"
-                        RenderTransformOrigin="0.5,0.5" Margin="0,0,0,10" Visibility="Hidden"/> 
+                        RenderTransformOrigin="0.5,0.5" Margin="0,0,0,10" Visibility="Hidden"/>
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" MinHeight="33"/>
@@ -103,12 +103,12 @@
                             Orientation="Vertical"
                             Margin="273,35,273,0">
 
-                    <Image  Source="/Images/schedule.png" Width="220" Height="150" VerticalAlignment="Top"/>
+                    <Image  Source="/Images/schedule.png" Width="225" Height="150"/>
 
-                    <TextBlock x:Name="WelcomeText" Text="sign in or sign up to scheduley"
+                    <TextBlock x:Name="WelcomeText" Text="Sign In/Sign Up To Scheduley"
                                Foreground="LightGray"
                                FontSize="18"
-                               FontWeight="Medium"
+                               FontWeight="Bold"
                                FontFamily="Montserrat"
                                TextWrapping="Wrap"
                                TextAlignment="Center"
@@ -118,7 +118,7 @@
 
                     <TextBlock Text="Username"
                                Foreground="DarkGray"
-                               FontSize="12"
+                               FontSize="14"
                                FontWeight="Medium"
                                FontFamily="Montserrat"                             
                                Margin="0,35,0,0"/>
@@ -138,7 +138,7 @@
 
                     <TextBlock Text="Password"
                                Foreground="DarkGray"
-                               FontSize="12"
+                               FontSize="14"
                                FontWeight="Medium"
                                FontFamily="Montserrat"                             
                                Margin="0,15,0,0"/>
@@ -160,7 +160,7 @@
                             BorderThickness="0"
                             Content="LOG IN"
                             Foreground="White"
-                            FontSize="12"
+                            FontSize="16"
                             FontFamily="Montserrat"
                             Cursor="Hand"                           
                             Margin="0,50,0,0"
@@ -195,13 +195,13 @@
 
                         <TextBlock Text="Sign Up"
                                Foreground="DarkGray"
-                               FontSize="12"
+                               FontSize="14"
                                FontWeight="Medium"
                                FontFamily="Montserrat"/>
 
                         <TextBlock Text="Here"
                                Foreground="White"
-                               FontSize="12"
+                               FontSize="16"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                Cursor="Hand"
@@ -209,9 +209,31 @@
 
                     </StackPanel>
                 </StackPanel>
-                
-                
-                
+
+                <Button x:Name="InfoButton" HorizontalAlignment="Left" VerticalAlignment="Top"
+                         Background="Azure" Margin="31,19,0,0" Height="40" Width="40" Click="InfoClicked"  >
+                    <Button.Content>
+                        <Image Source="/Images/info_icon.png" Cursor="Hand"/>
+                    </Button.Content>
+
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <TextBlock Text="Make sure all fields are filled correctly."/>
+                        </ToolTip>
+                    </Button.ToolTip>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="40" Height="40"
+                                CornerRadius="20"
+                                Background="{TemplateBinding Background}"  >
+                                <ContentPresenter VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
 
 
             </Grid>

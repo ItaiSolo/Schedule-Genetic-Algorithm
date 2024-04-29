@@ -107,5 +107,30 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+
+
+        <Button x:Name="InfoButton" HorizontalAlignment="Left" VerticalAlignment="Center"
+         Background="Azure" Margin="287,0,0,0" Height="36" Width="36" Click="InfoClicked"  >
+            <Button.Content>
+                <Image Source="/Images/info_icon.png" Cursor="Hand"/>
+            </Button.Content>
+
+            <Button.ToolTip>
+                <ToolTip>
+                    <TextBlock Text="Make sure all fields are filled correctly."/>
+                </ToolTip>
+            </Button.ToolTip>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="35" Height="35"
+                CornerRadius="20"
+                Background="{TemplateBinding Background}"  >
+                        <ContentPresenter VerticalAlignment="Center"
+               HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </Page>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using MySqlX.XDevAPI.Common;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -74,6 +75,16 @@ namespace WpfApp
             Data.MeetingTimes.Delete(item as DateRange);
             DataGrid4.ItemsSource = Data.MeetingTimes;
             view4.Refresh();
+        }
+
+        private void InfoClicked(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("In this window you can see/delete all the information about the current schedule." +
+                " click Yes to see the full documentation", "Information", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                System.Diagnostics.Process.Start("https://docs.google.com/document/d/1-gEMkTd8JQxsS0qG9tEmxP3307A95BpPU-DL_9jQS70/view?pli=1#heading=h.nv0s9cpso0p5");
+            }
         }
     }
 }

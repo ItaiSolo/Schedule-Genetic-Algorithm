@@ -173,5 +173,4 @@ public class MyList<T> : IEnumerable<T>
     {
         Array.Sort(data, 0, size, comparer);
     }
-
 }

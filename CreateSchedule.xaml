@@ -115,5 +115,29 @@
         <Button x:Name="SubmitListButton" Content="Submit Teacher" Grid.Row="6" Click="SubmitList"
                 Margin="604,54,46,111" FontSize="14" Height="NaN" Visibility="Hidden"/>
 
+
+        <Button x:Name="InfoButton" HorizontalAlignment="Left" VerticalAlignment="Top"
+         Background="Azure" Margin="271,125,0,0" Height="40" Width="40" Grid.Row="6" Click="InfoClicked"  >
+            <Button.Content>
+                <Image Source="/Images/info_icon.png" Cursor="Hand"/>
+            </Button.Content>
+
+            <Button.ToolTip>
+                <ToolTip>
+                    <TextBlock Text="Make sure all fields are filled correctly."/>
+                </ToolTip>
+            </Button.ToolTip>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="40" Height="40"
+                CornerRadius="20"
+                Background="{TemplateBinding Background}"  >
+                        <ContentPresenter VerticalAlignment="Center"
+               HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </Page>
