@@ -222,6 +222,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="bin\Release\WpfApp.exe.config" />
     <None Include="ClassDiagramWPF.cd" />
     <None Include="ClassDiagramAlgorithm.cd" />
     <None Include="packages.config" />
@@ -262,8 +263,10 @@
     <Resource Include="Images\schedule1.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Release\BouncyCastle.Cryptography.dll" />
     <Resource Include="Images\info_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Release\BouncyCastle.Cryptography.dll" />
     <Content Include="bin\Release\Google.Protobuf.dll" />
     <Content Include="bin\Release\K4os.Compression.LZ4.dll" />
     <Content Include="bin\Release\K4os.Compression.LZ4.Streams.dll" />
@@ -279,6 +282,8 @@
     <Content Include="bin\Release\System.Numerics.Vectors.dll" />
     <Content Include="bin\Release\System.Runtime.CompilerServices.Unsafe.dll" />
     <Content Include="bin\Release\System.Threading.Tasks.Extensions.dll" />
+    <Content Include="bin\Release\WpfApp.exe" />
+    <Content Include="bin\Release\WpfApp.pdb" />
     <Content Include="bin\Release\ZstdSharp.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

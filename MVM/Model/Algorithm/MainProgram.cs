@@ -6,12 +6,12 @@ public class MainProgram
     public const int POPULATION_SIZE = 150;
     public const double MUTATION_RATE = 0.2;
     public const double CROSSOVER_RATE = 0.9;
-    public const int TOURNAMENT_SELECTION_SIZE = 5;
+    public const int TOURNAMENT_SELECTION_SIZE = 3;
     public const int NUM_OF_ELITE_SCHEDULES = 2;
     public const int MaxIteretions = 2000;
     public const double BestFitness = 1;
     public const int BestConflicts = 0;
-    public static Random mainRand;
+    public Random mainRand;//do not make it static it makes the algorithm worse
     public static int scheduleNumb = 0;
     public int classNum = 1;
     public static Data data;
