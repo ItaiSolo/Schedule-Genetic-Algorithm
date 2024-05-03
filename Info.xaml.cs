@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using Mysqlx.Crud;
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,13 +18,16 @@ namespace WpfApp
         private ICollectionView view2 = null;
         private ICollectionView view3 = null;
         private ICollectionView view4 = null;
-        public ObservableCollection<string> MeetingTimesPerTeacherString { get; set; }
+        private ICollectionView view5 = null;
+        public ObservableCollection<string> InstructorsPerCourseString { get; set; }
 
 
         public Info()
         {
             InitializeComponent();
         }
+
+        //turns each data.Courses1 instructor into a row in the DataGrid in the UI - Info           
 
         //Refreshes the data in the DataGrid in the UI - Info 
         public void UpdateData(Data data)
@@ -32,6 +37,10 @@ namespace WpfApp
             view2 = CollectionViewSource.GetDefaultView(data.Rooms);
             view3 = CollectionViewSource.GetDefaultView(data.Instructors);
             view4 = CollectionViewSource.GetDefaultView(data.MeetingTimes);
+            InstructorsPerCourseString = new ObservableCollection<string>();
+
+            InsertInstructorsPerCourse(data);
+            view5 = CollectionViewSource.GetDefaultView(InstructorsPerCourseString);
 
             DataGrid1.ItemsSource = data.Courses1;
             DataGrid2.ItemsSource = data.Rooms;
@@ -39,10 +48,27 @@ namespace WpfApp
             DataGrid3.ItemsSource = data.Instructors;
             DataGrid4.ItemsSource = data.MeetingTimes;
 
+            DataGrid5.ItemsSource = InstructorsPerCourseString;
+
             view1.Refresh();
             view2.Refresh();
             view3.Refresh();
             view4.Refresh();
+            view5.Refresh();
+        }
+
+        private void InsertInstructorsPerCourse(Data data)
+        {
+            foreach (var item in data.Courses1)
+            {
+                var temp = "{Course: " + item.name + "}\n";
+                foreach (var item2 in item.GetInstructors())
+                {
+                    temp += item2.ToString();
+                    InstructorsPerCourseString.Add(temp);
+                    temp = "{Course: " + item.name + "}\n";
+                }
+            }
         }
 
         //Deletes a row from the DataGrid in the UI - Info and the corresponding data from the Data class
@@ -64,6 +90,7 @@ namespace WpfApp
             view2.Refresh();
         }
 
+        //Deletes a row from the DataGrid in the UI - Info and the corresponding data from the Data class and all of its references in the Courses that use it
         private void DeleteInstructor(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -72,6 +99,7 @@ namespace WpfApp
             DataGrid3.ItemsSource = MainProgram.data.Instructors;
             view3.Refresh();
         }
+        //Deletes a row from the DataGrid in the UI - Info and the corresponding data from the Data class and all of its references in the Instructors that use it
         private void DeleteMeetingTime(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -79,6 +107,33 @@ namespace WpfApp
             MainProgram.data.MeetingTimes.Delete(item as DateRange);
             DataGrid4.ItemsSource = MainProgram.data.MeetingTimes;
             view4.Refresh();
+        }
+
+        //not a good way to do this, but it works
+        private void DeleteInstructorPerCourse(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var item = button.DataContext;
+            var fullString = item.ToString().Split('\n');
+            var InstructorString = fullString[1];
+            var CourseString = fullString[0].Split(':')[1];
+            CourseString = CourseString.Substring(1, CourseString.Length - 2);
+            foreach (var item2 in MainProgram.data.Courses1)
+            {
+                if (item2.name == CourseString)
+                {
+                    foreach (var item3 in item2.GetInstructors())
+                    {
+                        if (item3.ToString() == InstructorString)
+                        {
+                            MainProgram.data.Courses1.GetAt(MainProgram.data.Courses1.IndexOf(item2)).GetInstructors().Delete(item3);
+                        }
+                    }
+                }
+            }
+            InstructorsPerCourseString.Remove(item as string);
+            DataGrid5.ItemsSource = InstructorsPerCourseString;
+            view5.Refresh();
         }
 
         private void InfoClicked(object sender, RoutedEventArgs e)
@@ -90,5 +145,7 @@ namespace WpfApp
                 System.Diagnostics.Process.Start("https://docs.google.com/document/d/1-gEMkTd8JQxsS0qG9tEmxP3307A95BpPU-DL_9jQS70/view?pli=1#heading=h.nv0s9cpso0p5");
             }
         }
+
+        
     }
 }

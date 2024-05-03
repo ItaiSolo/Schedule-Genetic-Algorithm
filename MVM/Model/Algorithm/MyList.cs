@@ -124,7 +124,7 @@ public class MyList<T> : IEnumerable<T>
     //Resizes the array to twice its current size when it is full
     private void Resize()
     {
-        capacity *= 2;
+        capacity += 2;
         T[] newData = new T[capacity];
         for (int i = 0; i < size; i++)
         {

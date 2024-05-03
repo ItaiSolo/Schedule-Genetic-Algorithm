@@ -35,6 +35,7 @@
             <RowDefinition Height="*"/>
             <!-- Data grids -->
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <!-- Footer or additional information -->
         </Grid.RowDefinitions>
 
@@ -82,7 +83,7 @@
         <DataGrid x:Name="DataGrid3" AutoGenerateColumns="False" IsReadOnly="True" Margin="10" FontSize="16" FontWeight="Bold" Grid.Row="2" Grid.Column="0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Available Instructors" Binding="{Binding}"/>
-               
+
                 <DataGridTemplateColumn Header="Delete" Width="SizeToCells" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -133,5 +134,18 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        <DataGrid x:Name="DataGrid5" AutoGenerateColumns="False" IsReadOnly="True" Margin="10" FontSize="16" FontWeight="Bold" Grid.Row="3" Grid.Column="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Instructors Per Course" Binding="{Binding}"/>
+                <DataGridTemplateColumn Header="Delete" Width="SizeToCells" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Delete" Style="{StaticResource DeleteButtonStyle}"
+                                Click="DeleteInstructorPerCourse" ToolTip="Delete this item"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

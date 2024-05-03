@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows.Markup;
+using WpfApp;
 
 /*
  * This class represents the data in the system, that is used by the algorithms and shown in the UI.
@@ -10,7 +12,7 @@ public class Data
     public MyList<Teachers> Instructors { get; private set; } // Instructor == Teacher
     public MyList<Teachers> InstructorsPerCourse { get; private set; }
     public MyList<DateRange> MeetingTimesPerTeacher { get; private set; }
-    public MyList<Courses> Courses1 { get; private set; }
+    public MyList<Courses> Courses1 { get;  set; }
     public MyList<DateRange> MeetingTimes { get; private set; }
 
 
@@ -19,7 +21,7 @@ public class Data
         Initialize();
     }
 
-    public Data Initialize()
+    public void Initialize()
     {
         // Initialize rooms
 
@@ -30,11 +32,14 @@ public class Data
         MeetingTimesPerTeacher = new MyList<DateRange>();
         Courses1 = new MyList<Courses>();
 
-        //delete all later -----------------------------------
-        //all from here is not needed
+        // add default data
+        AddDefaultData();
+    }
+    public void AddDefaultData()
+    {
         var a = new Classrooms("R1", 25);
         Rooms.Add(a);
-        //Rooms.Add(new Classrooms("R2", 45));
+        Rooms.Add(new Classrooms("R2", 45));
         Rooms.Add(new Classrooms("R3", 35));
 
         var range1StartDay = 15;
@@ -111,6 +116,6 @@ public class Data
         Courses1.Add(new Courses("C5", "360C", new MyList<Teachers> { Instructors.GetAt(3) }, 35));
         Courses1.Add(new Courses("C6", "303K", new MyList<Teachers> { Instructors.GetAt(0), Instructors.GetAt(2) }, 45));
         Courses1.Add(new Courses("C7", "303L", new MyList<Teachers> { Instructors.GetAt(1), Instructors.GetAt(3) }, 45));
-        return this;
+        MainWindow.showData.UpdateData(this);
     }
 }

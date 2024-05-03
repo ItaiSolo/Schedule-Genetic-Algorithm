@@ -16,7 +16,7 @@ namespace WpfApp
         // Connection string includes the server information, database name, user name, and password.
         readonly string connectionString = "server=database-3f.cbacig0a47uz.eu-north-1.rds.amazonaws.com;" +
                                   "user=admin;password=asdQWE123!^&*; database=try1;";
-        readonly MySqlConnection connection;
+        public readonly MySqlConnection connection;
         private string UserName;
         private string Password;
         private int userId;
@@ -103,14 +103,14 @@ namespace WpfApp
         //continues signing up in the database with SQL commands
         private void SignUpSQL(string username, string password, MySqlConnection connection)
         {
-            if (txtUser.Text != null && txtPass.Password != null && txtUser.Text != "" &&
-                txtPass.Password != "" && txtUser.Text.Length > 1 && txtPass.Password.Length > 1)
+            if (username != null && password != null && username != "" &&
+                password != "" && username.Length > 1 && password.Length > 1)
             {
-                string commandText = "INSERT INTO TempUsers (name, password) VALUES (@name, @password);";
+                string commandText = "INSERT INTO TempUsers (name, password,scheduleID) VALUES (@name, @password, 0);";
 
                 MySqlCommand command = new MySqlCommand(commandText, connection);
-                command.Parameters.AddWithValue("@name", txtUser.Text);
-                command.Parameters.AddWithValue("@password", txtPass.Password); // Consider hashing
+                command.Parameters.AddWithValue("@name", username);
+                command.Parameters.AddWithValue("@password", password); // Consider hashing
 
                 command.ExecuteNonQuery();
                 BtnLogin_Click(null, null);//call for login
@@ -128,6 +128,7 @@ namespace WpfApp
                 else MainWindow.CreateWindow.ChangeColorF(sender, e);
 
             }
+            else seatsInput.Text = "0";
         }
 
         private void DecreaseId_Click(object sender, RoutedEventArgs e)
@@ -139,6 +140,7 @@ namespace WpfApp
                     MainWindow.CreateWindow.ChangeColorS(sender, e);
                 else MainWindow.CreateWindow.ChangeColorF(sender, e);
             }
+            else seatsInput.Text = "0";
         }
 
         //inserts the schedule into the database calls "SaveDataSchedule" for the insertion in MySql
@@ -162,22 +164,22 @@ namespace WpfApp
         private bool LoadSchedule(int currentScheduleId)
         {
             var query = @"
-                SELECT save, save2,dateCreated FROM TempInfo
-                WHERE InfoID = @InfoId and createdByUserId = @UserId;";
+                SELECT scheduleData,scheduleResult,dateCreated FROM TempInfo
+                WHERE userInsertionNum = @userInsertionNum and createdByUserId = @UserId;";
 
             using (var command = new MySqlCommand(query, connection))
             {
-                command.Parameters.AddWithValue("@InfoId", currentScheduleId);
+                command.Parameters.AddWithValue("@userInsertionNum", currentScheduleId);
                 command.Parameters.AddWithValue("@UserId", userId);
 
                 using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read())
                     {
-                        string jsonData = reader.GetString("save");
+                        string jsonData = reader.GetString("scheduleData");
                         Data data = JsonConvert.DeserializeObject<Data>(jsonData);
                         MainWindow.CreateWindow.UpdateDataSQL(data);
-                        string jsonResultData = reader.GetString("save2");
+                        string jsonResultData = reader.GetString("scheduleResult");
                         MyList<ScheduleResult> result = JsonConvert.DeserializeObject<MyList<ScheduleResult>>(jsonResultData);
                         DateTime? dateCreated = reader.IsDBNull(reader.GetOrdinal("dateCreated")) ? null : (DateTime?)reader.GetDateTime("dateCreated");
                         MainWindow.showScheduleLive.ShowResult(result, false, dateCreated.ToString());
@@ -193,23 +195,32 @@ namespace WpfApp
         //inserts the current schedule data into the database
         public void SaveDataSchedule(MyList<ScheduleResult> result, Data data)
         {
-            string jsonData = JsonConvert.SerializeObject(data);
-            string jsonResultData = JsonConvert.SerializeObject(result);
-            var query = @"
-                INSERT INTO TempInfo (createdByUserId, dateCreated, temp1, save, save2)
-                VALUES (@CreatedByUserId, NOW(), @Temp1, @Save, @Save2);
-                SELECT LAST_INSERT_ID();";
+            string jsonData = JsonConvert.SerializeObject(data); // all properties have to be public!!
+            string jsonResultData = JsonConvert.SerializeObject(result); // all properties have to be public!!
 
-            using (var command = new MySqlCommand(query, connection))
+            int userInsertionNum = 0;
+            string selectQuery = "SELECT COALESCE(MAX(userInsertionNum), 0) + 1 FROM TempInfo WHERE createdByUserId = @CreatedByUserId";
+            using (var command = new MySqlCommand(selectQuery, connection))
             {
                 command.Parameters.AddWithValue("@CreatedByUserId", userId);
-                command.Parameters.AddWithValue("@Temp1", DBNull.Value);
-                command.Parameters.AddWithValue("@Save", jsonData);
-                command.Parameters.AddWithValue("@Save2", jsonResultData);
-
-                int infoId = Convert.ToInt32(command.ExecuteScalar());
-                MessageBox.Show("Schedule saved successfully. Your schedule ID is " + infoId + " for UserName: " + UserName, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                userInsertionNum = Convert.ToInt32(command.ExecuteScalar());
             }
+
+            string insertQuery = @"
+                INSERT INTO TempInfo (createdByUserId, dateCreated, scheduleData, scheduleResult, userInsertionNum)
+                VALUES (@CreatedByUserId, NOW(), @ScheduleData, @ScheduleResult, @UserInsertionNum);";
+
+            using (var command = new MySqlCommand(insertQuery, connection))
+            {
+                command.Parameters.AddWithValue("@CreatedByUserId", userId);
+                command.Parameters.AddWithValue("@ScheduleData", jsonData);
+                command.Parameters.AddWithValue("@ScheduleResult", jsonResultData);
+                command.Parameters.AddWithValue("@UserInsertionNum", userInsertionNum);
+                command.ExecuteNonQuery();
+
+            }
+            MessageBox.Show("Schedule saved successfully. Your schedule ID is " + userInsertionNum + " for UserName: " + UserName, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+
         }
 
         private void InfoClicked(object sender, RoutedEventArgs e)

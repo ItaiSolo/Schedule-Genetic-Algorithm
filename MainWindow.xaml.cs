@@ -9,10 +9,10 @@ namespace WpfApp
 
     public partial class MainWindow : Window
     {
+        public static Info showData = new Info();
         public static SignIn SignInWindow = new SignIn();// create the page1 window and every thing else
         public static CreateSchedule CreateWindow = new CreateSchedule();
         public static ShowSchedule showScheduleLive = new ShowSchedule();
-        public static Info showData = new Info();
         public static ScheduleDays showScheduleDays = new ScheduleDays();
 
         public MainWindow()
@@ -26,6 +26,7 @@ namespace WpfApp
         {
             try
             {
+                SignInWindow.connection.Close();
                 Application.Current.Shutdown();
             }
             catch (Exception ex)

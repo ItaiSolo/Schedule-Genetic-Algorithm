@@ -17,7 +17,7 @@ public class Schedules
     {
         classes = new MyList<TimeCube>(Courses.GetCounter());
     }
-
+    //get the list of classes and set isFitnessChanged to true
     public MyList<TimeCube> Classes
     {
         get
