@@ -44,7 +44,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock x:Name="ScheduleTitel" Grid.Row="0" Text="Schedule Information[View By Days -> In Home]" FontSize="20" FontWeight="Bold" Margin="5,5,5,5" Background="AliceBlue"/>
+        <TextBlock x:Name="ScheduleTitel" Grid.Row="0" Text=" Schedule Information [View By Days -> In Home]" FontSize="20" FontWeight="Bold" Margin="5,5,5,5" Background="AliceBlue"/>
 
         <!-- DataGrid for displaying the schedule -->
         <Grid Grid.Row="2">

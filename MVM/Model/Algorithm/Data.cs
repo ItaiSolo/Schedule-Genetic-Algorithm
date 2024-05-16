@@ -8,12 +8,13 @@ using WpfApp;
 
 public class Data
 {
-    public MyList<Classrooms> Rooms { get; private set; }
-    public MyList<Teachers> Instructors { get; private set; } // Instructor == Teacher
-    public MyList<Teachers> InstructorsPerCourse { get; private set; }
-    public MyList<DateRange> MeetingTimesPerTeacher { get; private set; }
+    // All have to be Public for the Deserialization to was on loading a schedule!
+    public MyList<Classrooms> Rooms { get; set; }
+    public MyList<Teachers> Instructors { get; set; } // Instructor == Teacher
+    public MyList<Teachers> InstructorsPerCourse { get; set; }
+    public MyList<DateRange> MeetingTimesPerTeacher { get; set; }
     public MyList<Courses> Courses1 { get;  set; }
-    public MyList<DateRange> MeetingTimes { get; private set; }
+    public MyList<DateRange> MeetingTimes { get; set; }
 
 
     public Data()
@@ -31,10 +32,8 @@ public class Data
         InstructorsPerCourse = new MyList<Teachers>();
         MeetingTimesPerTeacher = new MyList<DateRange>();
         Courses1 = new MyList<Courses>();
-
-        // add default data
-        AddDefaultData();
     }
+
     public void AddDefaultData()
     {
         var a = new Classrooms("R1", 25);

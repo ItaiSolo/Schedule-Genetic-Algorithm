@@ -143,7 +143,7 @@ namespace WpfApp
             else seatsInput.Text = "0";
         }
 
-        //inserts the schedule into the database calls "SaveDataSchedule" for the insertion in MySql
+        //inserts/saves the schedule into the database calls "SaveDataSchedule" for the insertion in MySql
         public bool InsertNewSchedule(MyList<ScheduleResult> result, Data data)
         {
             using (var transaction = connection.BeginTransaction())
@@ -195,8 +195,8 @@ namespace WpfApp
         //inserts the current schedule data into the database
         public void SaveDataSchedule(MyList<ScheduleResult> result, Data data)
         {
-            string jsonData = JsonConvert.SerializeObject(data); // all properties have to be public!!
-            string jsonResultData = JsonConvert.SerializeObject(result); // all properties have to be public!!
+            string jsonData = JsonConvert.SerializeObject(data); // all properties have to be public!!| this saves the Data input 
+            string jsonResultData = JsonConvert.SerializeObject(result); // all properties have to be public!!| this saves only the results
 
             int userInsertionNum = 0;
             string selectQuery = "SELECT COALESCE(MAX(userInsertionNum), 0) + 1 FROM TempInfo WHERE createdByUserId = @CreatedByUserId";
@@ -225,7 +225,7 @@ namespace WpfApp
 
         private void InfoClicked(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("In this window you can enter the password and username and then click login to sign in or sign up using the entered credentials." +
+            MessageBoxResult result = MessageBox.Show("In this window you can enter the Password and Username and then click Login to Sign In Or Sign Up using the SAME entered credentials." +
                " click Yes to see the full documentation", "Information", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {

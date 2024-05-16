@@ -20,7 +20,7 @@ public class DateRange
     public override string ToString()
     {
         string dayOfWeek = Start.DayOfWeek.ToString();
-        string startTime = Start.ToString("HH:mm"); // Start time in HH:mm format
+        string startTime = Start.ToString("HH:mm"); // Start time in HH:mm format -> example: 09:00 hours in 24 hour format and then minutes
         string endTime = End.ToString("HH:mm"); // End time in HH:mm format
 
         return $"{dayOfWeek} {startTime} - {endTime}";

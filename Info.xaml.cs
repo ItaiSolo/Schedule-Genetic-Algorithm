@@ -5,13 +5,14 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace WpfApp
 {
     /// <summary>
     /// This class represents the data in the system, that is used by the algorithms and shown in the UI.
     /// </summary>
-    ///  <DataGridTextColumn Header="Available Times" Binding="{Binding MeetingTimesPerTeacher}"/>
+
     public partial class Info : Page
     {
         private ICollectionView view1 = null;
@@ -19,15 +20,15 @@ namespace WpfApp
         private ICollectionView view3 = null;
         private ICollectionView view4 = null;
         private ICollectionView view5 = null;
+        private ICollectionView view6 = null;
         public ObservableCollection<string> InstructorsPerCourseString { get; set; }
+        public ObservableCollection<string> HoursPerTeacherString { get; set; }
 
 
         public Info()
         {
             InitializeComponent();
-        }
-
-        //turns each data.Courses1 instructor into a row in the DataGrid in the UI - Info           
+        }        
 
         //Refreshes the data in the DataGrid in the UI - Info 
         public void UpdateData(Data data)
@@ -38,35 +39,62 @@ namespace WpfApp
             view3 = CollectionViewSource.GetDefaultView(data.Instructors);
             view4 = CollectionViewSource.GetDefaultView(data.MeetingTimes);
             InstructorsPerCourseString = new ObservableCollection<string>();
+            HoursPerTeacherString = new ObservableCollection<string>();
 
             InsertInstructorsPerCourse(data);
             view5 = CollectionViewSource.GetDefaultView(InstructorsPerCourseString);
 
+            InsertHoursPerTeacher(data);
+            view6 = CollectionViewSource.GetDefaultView(HoursPerTeacherString);
+
+            UpdateDataGrid(data);
+        }
+
+        private void UpdateDataGrid(Data data)
+        {
             DataGrid1.ItemsSource = data.Courses1;
             DataGrid2.ItemsSource = data.Rooms;
-           
+
             DataGrid3.ItemsSource = data.Instructors;
             DataGrid4.ItemsSource = data.MeetingTimes;
 
             DataGrid5.ItemsSource = InstructorsPerCourseString;
+            DataGrid6.ItemsSource = HoursPerTeacherString;
 
             view1.Refresh();
             view2.Refresh();
             view3.Refresh();
             view4.Refresh();
             view5.Refresh();
+            view6.Refresh();
+        }
+
+        private void InsertHoursPerTeacher(Data data)
+        {
+            foreach (var Course in data.Courses1)
+            {            
+                foreach (var Instructor in Course.GetInstructors())
+                {
+                    foreach (var MeetingTimes in Instructor.GetMeetingTimesPerTeacher())
+                    {
+                        var temp = "{Teacher: " + Instructor.Name + "}\n";
+                        temp += MeetingTimes.ToString();
+                        if(!HoursPerTeacherString.Contains(temp))
+                            HoursPerTeacherString.Add(temp);
+                    }
+                }
+            }
         }
 
         private void InsertInstructorsPerCourse(Data data)
         {
-            foreach (var item in data.Courses1)
+            foreach (var Course in data.Courses1)
             {
-                var temp = "{Course: " + item.name + "}\n";
-                foreach (var item2 in item.GetInstructors())
+                foreach (var Instructor in Course.GetInstructors())
                 {
-                    temp += item2.ToString();
+                    var temp = "{Course: " + Course.name + "}\n";
+                    temp += Instructor.ToString();
                     InstructorsPerCourseString.Add(temp);
-                    temp = "{Course: " + item.name + "}\n";
                 }
             }
         }
@@ -77,8 +105,7 @@ namespace WpfApp
             var button = sender as Button;
             var item = button.DataContext;
             MainProgram.data.Courses1.Delete(item as Courses);
-            DataGrid1.ItemsSource = MainProgram.data.Courses1;
-            view1.Refresh();
+            UpdateDataGrid(MainProgram.data);
         }
 
         private void DeleteRoom(object sender, RoutedEventArgs e)
@@ -86,8 +113,7 @@ namespace WpfApp
             var button = sender as Button;
             var item = button.DataContext;
             MainProgram.data.Rooms.Delete(item as Classrooms);
-            DataGrid2.ItemsSource = MainProgram.data.Rooms;
-            view2.Refresh();
+            UpdateDataGrid(MainProgram.data);
         }
 
         //Deletes a row from the DataGrid in the UI - Info and the corresponding data from the Data class and all of its references in the Courses that use it
@@ -96,8 +122,7 @@ namespace WpfApp
             var button = sender as Button;
             var item = button.DataContext;
             MainProgram.data.Instructors.Delete(item as Teachers);
-            DataGrid3.ItemsSource = MainProgram.data.Instructors;
-            view3.Refresh();
+            UpdateDataGrid(MainProgram.data);
         }
         //Deletes a row from the DataGrid in the UI - Info and the corresponding data from the Data class and all of its references in the Instructors that use it
         private void DeleteMeetingTime(object sender, RoutedEventArgs e)
@@ -105,11 +130,10 @@ namespace WpfApp
             var button = sender as Button;
             var item = button.DataContext;
             MainProgram.data.MeetingTimes.Delete(item as DateRange);
-            DataGrid4.ItemsSource = MainProgram.data.MeetingTimes;
-            view4.Refresh();
+            UpdateDataGrid(MainProgram.data);
         }
 
-        //not a good way to do this, but it works
+        //not a good way to do this, but it works :)
         private void DeleteInstructorPerCourse(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -118,22 +142,51 @@ namespace WpfApp
             var InstructorString = fullString[1];
             var CourseString = fullString[0].Split(':')[1];
             CourseString = CourseString.Substring(1, CourseString.Length - 2);
-            foreach (var item2 in MainProgram.data.Courses1)
+            foreach (var Course in MainProgram.data.Courses1)
             {
-                if (item2.name == CourseString)
+                if (Course.name == CourseString)
                 {
-                    foreach (var item3 in item2.GetInstructors())
+                    foreach (var Instructor in Course.GetInstructors())
                     {
-                        if (item3.ToString() == InstructorString)
+                        if (Instructor.ToString() == InstructorString)
                         {
-                            MainProgram.data.Courses1.GetAt(MainProgram.data.Courses1.IndexOf(item2)).GetInstructors().Delete(item3);
+                            Course.GetInstructors().Delete(Instructor);
                         }
                     }
                 }
             }
             InstructorsPerCourseString.Remove(item as string);
-            DataGrid5.ItemsSource = InstructorsPerCourseString;
-            view5.Refresh();
+            UpdateDataGrid(MainProgram.data);
+        }
+
+        //not a good/efficient way to do this, but it works ;)
+        private void DeleteHoursPerTeacher(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var item = button.DataContext;
+            var fullString = item.ToString().Split('\n');
+            var InstructorString = fullString[0].Split(':')[1];
+            var HoursString = fullString[1];
+            InstructorString = InstructorString.Substring(1, InstructorString.Length - 2);
+            foreach (var Course in MainProgram.data.Courses1)
+            {
+                foreach (var Instructor in Course.GetInstructors())
+                {
+                    if (Instructor.Name == InstructorString)
+                    {
+                        foreach (var MeetingTimes in Instructor.GetMeetingTimesPerTeacher())
+                        {
+                            if (MeetingTimes.ToString() == HoursString)
+                            {
+                                Instructor.GetMeetingTimesPerTeacher().Delete(MeetingTimes);
+                            }
+                        }
+                        
+                    }
+                }
+            }
+            HoursPerTeacherString.Remove(item as string);
+            UpdateDataGrid(MainProgram.data);
         }
 
         private void InfoClicked(object sender, RoutedEventArgs e)

@@ -10,15 +10,16 @@ namespace WpfApp
     public partial class MainWindow : Window
     {
         public static Info showData = new Info();
-        public static SignIn SignInWindow = new SignIn();// create the page1 window and every thing else
-        public static CreateSchedule CreateWindow = new CreateSchedule();
-        public static ShowSchedule showScheduleLive = new ShowSchedule();
-        public static ScheduleDays showScheduleDays = new ScheduleDays();
+        public static SignIn SignInWindow = new SignIn();                   // all the sign in and sign up and sql connection
+        public static CreateSchedule CreateWindow = new CreateSchedule();  // MainProgram.data... creates the page1 window and everything else
+        public static ShowSchedule showScheduleLive = new ShowSchedule(); // shows the schedule results
+        public static ScheduleDays showScheduleDays = new ScheduleDays();// shows the schedule by days
 
         public MainWindow()
         {
             InitializeComponent();
             MainFrame.Navigate(SignInWindow);
+            DisplayTestDataMsg();
         }
 
         // Close the application
@@ -105,7 +106,15 @@ namespace WpfApp
             }
         }
 
-
+        private void DisplayTestDataMsg()
+        {
+            MessageBoxResult result = MessageBox.Show("Welcome to the Schedule Manager. You can load the test data(Click Yes) or create your own(Click No)",
+                "Information", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                MainProgram.data.AddDefaultData();
+            }
+        }
 
     }
 }
