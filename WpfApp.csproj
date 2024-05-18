@@ -345,7 +345,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="bin\Release\WpfApp.exe.config" />
     <None Include="ClassDiagramWPF.cd" />
     <None Include="ClassDiagramAlgorithm.cd" />
     <None Include="packages.config" />
@@ -405,8 +404,6 @@
     <Content Include="bin\Release\System.Numerics.Vectors.dll" />
     <Content Include="bin\Release\System.Runtime.CompilerServices.Unsafe.dll" />
     <Content Include="bin\Release\System.Threading.Tasks.Extensions.dll" />
-    <Content Include="bin\Release\WpfApp.exe" />
-    <Content Include="bin\Release\WpfApp.pdb" />
     <Content Include="bin\Release\ZstdSharp.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
