@@ -17,6 +17,14 @@ public class Schedules
     {
         classes = new MyList<TimeCube>(Courses.GetCounter());
     }
+    public Schedules(Schedules InputSchedule)
+    {
+        this.classes = InputSchedule.classes.Copy();
+        this.fitness = InputSchedule.fitness;
+        this.isFitnessChanged = InputSchedule.isFitnessChanged;
+        this.numbOfConflicts = InputSchedule.numbOfConflicts;
+        this.ConflictsList = InputSchedule.ConflictsList.Copy();
+    }
     //get the list of classes and set isFitnessChanged to true
     public MyList<TimeCube> Classes
     {

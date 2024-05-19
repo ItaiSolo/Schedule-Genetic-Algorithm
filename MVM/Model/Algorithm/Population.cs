@@ -17,6 +17,12 @@ public class Population
         }
     }
 
+    //init the population with input schedules/population
+    public Population(MyList<Schedules> InputSchedules)
+    {
+        Schedules = InputSchedules.Copy();
+    }
+
     //sorts MyList - schedules by fitness
     public Population SortSchedulesByFitness()
     {

@@ -25,7 +25,7 @@ public class MainProgram
 
         int generationNumber = 0;
         var geneticAlgorithm = new GeneticAlgorithm(mainRand);
-        var population = new Population(POPULATION_SIZE, mainRand);
+        var population = new Population(POPULATION_SIZE, mainRand);// Initialize population with random schedules
 
         classNum = 1;
         if (population.Schedules.GetAt(0) == null) return null;
