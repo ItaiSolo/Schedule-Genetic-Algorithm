@@ -128,7 +128,6 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </TabItem>
-
             </TabControl>
         </Grid>
     </Grid>

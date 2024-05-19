@@ -3,12 +3,12 @@
 public class MainProgram
 {
     //initialize constraints/ constants
-    public const int POPULATION_SIZE = 150;
+    public const int POPULATION_SIZE = 160;
     public const double MUTATION_RATE = 0.2;
     public const double CROSSOVER_RATE = 0.9;
     public const int TOURNAMENT_SELECTION_SIZE = 3;
     public const int NUM_OF_ELITE_SCHEDULES = 2;
-    public const int MaxIterations = 2000;
+    public const int MaxIterations = 2200;
     public const double BestFitness = 1;
     public const int BestConflicts = 0;
     public Random mainRand;//do not make it static it makes the algorithm worse
@@ -42,8 +42,8 @@ public class MainProgram
             currentBestFitness = population.Schedules.GetAt(0).Fitness;
             currentBestConflicts = population.Schedules.GetAt(0).NumbOfConflicts;
             generationNumber++;
-
         }
+
         if (generationNumber == MaxIterations - 1)
         {
             population = geneticAlgorithm.EvolvePopulation(population);
@@ -68,7 +68,6 @@ public class MainProgram
             ));
         }
         scheduleResultList.GetAt(0).SetErrors(population.Schedules.GetAt(0).ConflictsList.Copy());
-
         return scheduleResultList;
     }
 }
