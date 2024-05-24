@@ -4,6 +4,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Navigation;
 
 namespace WpfApp
@@ -14,8 +15,8 @@ namespace WpfApp
     public partial class SignIn : Page
     {
         // Connection string includes the server information, database name, user name, and password.
-        readonly string connectionString = "server=database-3f.cbacig0a47uz.eu-north-1.rds.amazonaws.com;" +
-                                  "user=admin;password=asdQWE123!^&*; database=try1;";
+        readonly string connectionString = "Server=sql8.freemysqlhosting.net;Database=sql8708917;User ID=sql8708917;Password=CDraWKU7a8;Port=3306;";
+
         public readonly MySqlConnection connection;
         private string UserName;
         private string Password;
@@ -23,9 +24,16 @@ namespace WpfApp
 
         public SignIn()
         {
+             
             InitializeComponent();
-            connection = new MySqlConnection(connectionString);
-            connection.Open();
+            try
+            {
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
+            }
+            catch { 
+                MessageBox.Show("Error connecting to the database. Please try again later Or check your internet connection.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         //login button calls "SearchSQL" and return if user is found
@@ -106,7 +114,7 @@ namespace WpfApp
             if (username != null && password != null && username != "" &&
                 password != "" && username.Length > 1 && password.Length > 1)
             {
-                string commandText = "INSERT INTO TempUsers (name, password,scheduleID) VALUES (@name, @password, 0);";
+                string commandText = "INSERT INTO TempUsers (name, password) VALUES (@name, @password);";
 
                 MySqlCommand command = new MySqlCommand(commandText, connection);
                 command.Parameters.AddWithValue("@name", username);

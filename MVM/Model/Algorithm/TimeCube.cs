@@ -5,13 +5,13 @@
  */
 public class TimeCube
 {
-    public int Id { get; private set; }
-    public Courses Course { get; private set; }
-    public Teachers Instructor { get; private set; }
-    public DateRange MeetingTime { get; private set; }
+    public int Id { get; set; }
+    public Courses Course { get; set; }
+    public Teachers Instructor { get; set; }
+    public DateRange MeetingTime { get; set; }
 
 
-    public Classrooms Room { get; private set; }
+    public Classrooms Room { get; set; }
 
     public TimeCube(int id, Courses course)
     {

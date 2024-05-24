@@ -3175,6 +3175,16 @@
             tokenizer performing that validation - but not every token stream is valid "protobuf JSON".
             </summary>
         </member>
+        <member name="M:Google.Protobuf.JsonParser.TryParseSingleValue(Google.Protobuf.Reflection.FieldDescriptor,Google.Protobuf.JsonTokenizer,System.Object@)">
+            <summary>
+            Attempts to parse a single value from the JSON. When the value is completely invalid,
+            this will still throw an exception; when it's "conditionally invalid" (currently meaning
+            "when there's an unknown enum string value") the method returns false instead.
+            </summary>
+            <returns>
+            true if the value was parsed successfully; false for an ignorable parse failure.
+            </returns>
+        </member>
         <member name="M:Google.Protobuf.JsonParser.Parse``1(System.String)">
             <summary>
             Parses <paramref name="json"/> into a new message.
@@ -3382,6 +3392,35 @@
             It is assumed that the first letter of the literal has already been read.
             </summary>
         </member>
+        <member name="M:Google.Protobuf.JsonTokenizer.JsonTextTokenizer.ReadInt(System.Text.StringBuilder)">
+            <summary>
+            Copies an integer into a StringBuilder.
+            </summary>
+            <param name="builder">The builder to read the number into</param>
+            <returns>The character following the integer, or -1 for end-of-text.</returns>
+        </member>
+        <member name="M:Google.Protobuf.JsonTokenizer.JsonTextTokenizer.ReadFrac(System.Text.StringBuilder)">
+            <summary>
+            Copies the fractional part of an integer into a StringBuilder, assuming reader is positioned after a period.
+            </summary>
+            <param name="builder">The builder to read the number into</param>
+            <returns>The character following the fractional part, or -1 for end-of-text.</returns>
+        </member>
+        <member name="M:Google.Protobuf.JsonTokenizer.JsonTextTokenizer.ReadExp(System.Text.StringBuilder)">
+            <summary>
+            Copies the exponent part of a number into a StringBuilder, with an assumption that the reader is already positioned after the "e".
+            </summary>
+            <param name="builder">The builder to read the number into</param>
+            <returns>The character following the exponent, or -1 for end-of-text.</returns>
+        </member>
+        <member name="M:Google.Protobuf.JsonTokenizer.JsonTextTokenizer.ConsumeDigits(System.Text.StringBuilder,System.Int32@)">
+            <summary>
+            Copies a sequence of digits into a StringBuilder.
+            </summary>
+            <param name="builder">The builder to read the number into</param>
+            <param name="count">The number of digits appended to the builder</param>
+            <returns>The character following the digits, or -1 for end-of-text.</returns>
+        </member>
         <member name="M:Google.Protobuf.JsonTokenizer.JsonTextTokenizer.ValidateAndModifyStateForValue(System.String)">
             <summary>
             Validates that we're in a valid state to read a value (using the given error prefix if necessary)
@@ -3503,19 +3542,40 @@
         </member>
         <member name="F:Google.Protobuf.JsonTokenizer.JsonTextTokenizer.PushBackReader.nextChar">
             <summary>
-            The buffered next character, if we have one.
+            The buffered next character, if we have one, or -1 if there is no buffered character.
             </summary>
         </member>
         <member name="M:Google.Protobuf.JsonTokenizer.JsonTextTokenizer.PushBackReader.Read">
             <summary>
-            Returns the next character in the stream, or null if we have reached the end.
+            Returns the next character in the stream, or -1 if we have reached the end of the stream.
             </summary>
-            <returns></returns>
+        </member>
+        <member name="M:Google.Protobuf.JsonTokenizer.JsonTextTokenizer.PushBackReader.ReadOrFail(System.String)">
+            <summary>
+            Reads the next character from the underlying reader, throwing an <see cref="T:Google.Protobuf.InvalidJsonException" />
+            with the specified message if there are no more characters available.
+            </summary>
         </member>
         <member name="M:Google.Protobuf.JsonTokenizer.JsonTextTokenizer.PushBackReader.CreateException(System.String)">
             <summary>
             Creates a new exception appropriate for the current state of the reader.
             </summary>
+        </member>
+        <member name="T:Google.Protobuf.JsonTokenizer.JsonTextTokenizer.StringBuilderCache">
+            <summary>
+            Provide a cached reusable instance of stringbuilder per thread.
+            Copied from https://github.com/dotnet/runtime/blob/main/src/libraries/Common/src/System/Text/StringBuilderCache.cs
+            </summary>
+        </member>
+        <member name="M:Google.Protobuf.JsonTokenizer.JsonTextTokenizer.StringBuilderCache.Acquire(System.Int32)">
+            <summary>Get a StringBuilder for the specified capacity.</summary>
+            <remarks>If a StringBuilder of an appropriate size is cached, it will be returned and the cache emptied.</remarks>
+        </member>
+        <member name="M:Google.Protobuf.JsonTokenizer.JsonTextTokenizer.StringBuilderCache.Release(System.Text.StringBuilder)">
+            <summary>Place the specified builder in the cache if it is not too big.</summary>
+        </member>
+        <member name="M:Google.Protobuf.JsonTokenizer.JsonTextTokenizer.StringBuilderCache.GetStringAndRelease(System.Text.StringBuilder)">
+            <summary>ToString() the stringbuilder, Release it to the cache, and return the resulting string.</summary>
         </member>
         <member name="T:Google.Protobuf.LimitedInputStream">
             <summary>
@@ -3630,7 +3690,7 @@
         </member>
         <member name="M:Google.Protobuf.MessageExtensions.IsInitialized(Google.Protobuf.IMessage)">
             <summary>
-            Checks if all required fields in a message have values set. For proto3 messages, this returns true
+            Checks if all required fields in a message have values set. For proto3 messages, this returns true.
             </summary>
         </member>
         <member name="T:Google.Protobuf.MessageParser">
@@ -4451,6 +4511,12 @@
         <member name="F:Google.Protobuf.Reflection.Edition.Unknown">
             <summary>
             A placeholder for an unknown edition value.
+            </summary>
+        </member>
+        <member name="F:Google.Protobuf.Reflection.Edition.Legacy">
+            <summary>
+            A placeholder edition for specifying default behaviors *before* a feature
+            was first introduced.  This is effectively an "infinite past".
             </summary>
         </member>
         <member name="F:Google.Protobuf.Reflection.Edition.Proto2">
@@ -5369,14 +5435,18 @@
             <summary>Field number for the "java_string_check_utf8" field.</summary>
         </member>
         <member name="P:Google.Protobuf.Reflection.FileOptions.JavaStringCheckUtf8">
-            <summary>
-            If set true, then the Java2 code generator will generate code that
-            throws an exception whenever an attempt is made to assign a non-UTF-8
-            byte sequence to a string field.
-            Message reflection will do the same.
-            However, an extension field still accepts non-UTF-8 byte sequences.
-            This option has no effect on when used with the lite runtime.
-            </summary>
+             <summary>
+             A proto2 file can set this to true to opt in to UTF-8 checking for Java,
+             which will throw an exception if invalid UTF-8 is parsed from the wire or
+             assigned to a string field.
+            
+             TODO: clarify exactly what kinds of field types this option
+             applies to, and update these docs accordingly.
+            
+             Proto3 files already perform these checks. Setting the option explicitly to
+             false has no effect: it cannot be used to opt proto3 files out of UTF-8
+             checks.
+             </summary>
         </member>
         <member name="P:Google.Protobuf.Reflection.FileOptions.HasJavaStringCheckUtf8">
             <summary>Gets whether the "java_string_check_utf8" field is set</summary>
@@ -5953,6 +6023,9 @@
             Any features defined in the specific edition.
             </summary>
         </member>
+        <member name="F:Google.Protobuf.Reflection.FieldOptions.FeatureSupportFieldNumber">
+            <summary>Field number for the "feature_support" field.</summary>
+        </member>
         <member name="F:Google.Protobuf.Reflection.FieldOptions.UninterpretedOptionFieldNumber">
             <summary>Field number for the "uninterpreted_option" field.</summary>
         </member>
@@ -6031,6 +6104,73 @@
         </member>
         <member name="M:Google.Protobuf.Reflection.FieldOptions.Types.EditionDefault.ClearValue">
             <summary>Clears the value of the "value" field</summary>
+        </member>
+        <member name="T:Google.Protobuf.Reflection.FieldOptions.Types.FeatureSupport">
+            <summary>
+            Information about the support window of a feature.
+            </summary>
+        </member>
+        <member name="F:Google.Protobuf.Reflection.FieldOptions.Types.FeatureSupport.EditionIntroducedFieldNumber">
+            <summary>Field number for the "edition_introduced" field.</summary>
+        </member>
+        <member name="P:Google.Protobuf.Reflection.FieldOptions.Types.FeatureSupport.EditionIntroduced">
+            <summary>
+            The edition that this feature was first available in.  In editions
+            earlier than this one, the default assigned to EDITION_LEGACY will be
+            used, and proto files will not be able to override it.
+            </summary>
+        </member>
+        <member name="P:Google.Protobuf.Reflection.FieldOptions.Types.FeatureSupport.HasEditionIntroduced">
+            <summary>Gets whether the "edition_introduced" field is set</summary>
+        </member>
+        <member name="M:Google.Protobuf.Reflection.FieldOptions.Types.FeatureSupport.ClearEditionIntroduced">
+            <summary>Clears the value of the "edition_introduced" field</summary>
+        </member>
+        <member name="F:Google.Protobuf.Reflection.FieldOptions.Types.FeatureSupport.EditionDeprecatedFieldNumber">
+            <summary>Field number for the "edition_deprecated" field.</summary>
+        </member>
+        <member name="P:Google.Protobuf.Reflection.FieldOptions.Types.FeatureSupport.EditionDeprecated">
+            <summary>
+            The edition this feature becomes deprecated in.  Using this after this
+            edition may trigger warnings.
+            </summary>
+        </member>
+        <member name="P:Google.Protobuf.Reflection.FieldOptions.Types.FeatureSupport.HasEditionDeprecated">
+            <summary>Gets whether the "edition_deprecated" field is set</summary>
+        </member>
+        <member name="M:Google.Protobuf.Reflection.FieldOptions.Types.FeatureSupport.ClearEditionDeprecated">
+            <summary>Clears the value of the "edition_deprecated" field</summary>
+        </member>
+        <member name="F:Google.Protobuf.Reflection.FieldOptions.Types.FeatureSupport.DeprecationWarningFieldNumber">
+            <summary>Field number for the "deprecation_warning" field.</summary>
+        </member>
+        <member name="P:Google.Protobuf.Reflection.FieldOptions.Types.FeatureSupport.DeprecationWarning">
+            <summary>
+            The deprecation warning text if this feature is used after the edition it
+            was marked deprecated in.
+            </summary>
+        </member>
+        <member name="P:Google.Protobuf.Reflection.FieldOptions.Types.FeatureSupport.HasDeprecationWarning">
+            <summary>Gets whether the "deprecation_warning" field is set</summary>
+        </member>
+        <member name="M:Google.Protobuf.Reflection.FieldOptions.Types.FeatureSupport.ClearDeprecationWarning">
+            <summary>Clears the value of the "deprecation_warning" field</summary>
+        </member>
+        <member name="F:Google.Protobuf.Reflection.FieldOptions.Types.FeatureSupport.EditionRemovedFieldNumber">
+            <summary>Field number for the "edition_removed" field.</summary>
+        </member>
+        <member name="P:Google.Protobuf.Reflection.FieldOptions.Types.FeatureSupport.EditionRemoved">
+            <summary>
+            The edition this feature is no longer available in.  In editions after
+            this one, the last default assigned will be used, and proto files will
+            not be able to override it.
+            </summary>
+        </member>
+        <member name="P:Google.Protobuf.Reflection.FieldOptions.Types.FeatureSupport.HasEditionRemoved">
+            <summary>Gets whether the "edition_removed" field is set</summary>
+        </member>
+        <member name="M:Google.Protobuf.Reflection.FieldOptions.Types.FeatureSupport.ClearEditionRemoved">
+            <summary>Clears the value of the "edition_removed" field</summary>
         </member>
         <member name="F:Google.Protobuf.Reflection.OneofOptions.FeaturesFieldNumber">
             <summary>Field number for the "features" field.</summary>
@@ -6155,6 +6295,14 @@
         </member>
         <member name="M:Google.Protobuf.Reflection.EnumValueOptions.ClearDebugRedact">
             <summary>Clears the value of the "debug_redact" field</summary>
+        </member>
+        <member name="F:Google.Protobuf.Reflection.EnumValueOptions.FeatureSupportFieldNumber">
+            <summary>Field number for the "feature_support" field.</summary>
+        </member>
+        <member name="P:Google.Protobuf.Reflection.EnumValueOptions.FeatureSupport">
+            <summary>
+            Information about the support window of a feature value.
+            </summary>
         </member>
         <member name="F:Google.Protobuf.Reflection.EnumValueOptions.UninterpretedOptionFieldNumber">
             <summary>Field number for the "uninterpreted_option" field.</summary>
@@ -6490,8 +6638,21 @@
         <member name="M:Google.Protobuf.Reflection.FeatureSetDefaults.Types.FeatureSetEditionDefault.ClearEdition">
             <summary>Clears the value of the "edition" field</summary>
         </member>
-        <member name="F:Google.Protobuf.Reflection.FeatureSetDefaults.Types.FeatureSetEditionDefault.FeaturesFieldNumber">
-            <summary>Field number for the "features" field.</summary>
+        <member name="F:Google.Protobuf.Reflection.FeatureSetDefaults.Types.FeatureSetEditionDefault.OverridableFeaturesFieldNumber">
+            <summary>Field number for the "overridable_features" field.</summary>
+        </member>
+        <member name="P:Google.Protobuf.Reflection.FeatureSetDefaults.Types.FeatureSetEditionDefault.OverridableFeatures">
+            <summary>
+            Defaults of features that can be overridden in this edition.
+            </summary>
+        </member>
+        <member name="F:Google.Protobuf.Reflection.FeatureSetDefaults.Types.FeatureSetEditionDefault.FixedFeaturesFieldNumber">
+            <summary>Field number for the "fixed_features" field.</summary>
+        </member>
+        <member name="P:Google.Protobuf.Reflection.FeatureSetDefaults.Types.FeatureSetEditionDefault.FixedFeatures">
+            <summary>
+            Defaults of features that can't be overridden in this edition.
+            </summary>
         </member>
         <member name="T:Google.Protobuf.Reflection.SourceCodeInfo">
             <summary>
@@ -6777,6 +6938,13 @@
             Base class for nearly all descriptors, providing common functionality.
             </summary>
         </member>
+        <member name="P:Google.Protobuf.Reflection.DescriptorBase.Features">
+            <summary>
+            The feature set for this descriptor, including inherited features.
+            This is internal as external users should use the properties on individual
+            descriptor types (e.g. FieldDescriptor.IsPacked) rather than querying features directly.
+            </summary>
+        </member>
         <member name="P:Google.Protobuf.Reflection.DescriptorBase.Index">
             <value>
             The index of this descriptor within its parent descriptor.
@@ -6923,11 +7091,14 @@
             <exception cref="T:Google.Protobuf.Reflection.DescriptorValidationException">A field with the same
             containing type and number already exists.</exception>
         </member>
-        <member name="M:Google.Protobuf.Reflection.DescriptorPool.AddEnumValueByNumber(Google.Protobuf.Reflection.EnumValueDescriptor)">
+        <member name="M:Google.Protobuf.Reflection.DescriptorPool.AddEnumValue(Google.Protobuf.Reflection.EnumValueDescriptor)">
             <summary>
-            Adds an enum value to the enumValuesByNumber table. If an enum value
-            with the same type and number already exists, this method does nothing.
-            (This is allowed; the first value defined with the number takes precedence.)
+            Adds an enum value to the enumValuesByNumber and enumValuesByName tables. If an enum value
+            with the same type and number already exists, this method does nothing to enumValuesByNumber.
+            (This is allowed; the first value defined with the number takes precedence.) If an enum
+            value with the same name already exists, this method throws DescriptorValidationException.
+            (It is expected that this method is called after AddSymbol, which would already have thrown
+            an exception in this failure case.)
             </summary>
         </member>
         <member name="M:Google.Protobuf.Reflection.DescriptorPool.LookupSymbol(System.String,Google.Protobuf.Reflection.IDescriptor)">
@@ -6941,6 +7112,11 @@
             This isn't heavily optimized, but it's only used during cross linking anyway.
             If it starts being used more widely, we should look at performance more carefully.
             </remarks>
+        </member>
+        <member name="T:Google.Protobuf.Reflection.DescriptorPool.EnumValueByNameDescriptorKey">
+            <summary>
+            Struct used to hold the keys for the enumValuesByName table.
+            </summary>
         </member>
         <member name="T:Google.Protobuf.Reflection.DescriptorUtil">
             <summary>
@@ -7120,6 +7296,42 @@
             the provided descriptor type in ascending field order
             </summary>
         </member>
+        <member name="T:Google.Protobuf.Reflection.FeatureSetDescriptor">
+            <summary>
+            A resolved set of features for a file, message etc.
+            </summary>
+            <remarks>
+            Only features supported by the C# runtime are exposed; currently
+            all enums in C# are open, and we never perform UTF-8 validation.
+            If either of those features are ever implemented in this runtime,
+            the feature settings will be exposed as properties in this class.
+            </remarks>
+        </member>
+        <member name="P:Google.Protobuf.Reflection.FeatureSetDescriptor.FieldPresence">
+            <summary>
+            Only relevant to fields. Indicates if a field has explicit presence.
+            </summary>
+        </member>
+        <member name="P:Google.Protobuf.Reflection.FeatureSetDescriptor.RepeatedFieldEncoding">
+            <summary>
+            Only relevant to fields. Indicates how a repeated field should be encoded.
+            </summary>
+        </member>
+        <member name="P:Google.Protobuf.Reflection.FeatureSetDescriptor.MessageEncoding">
+            <summary>
+            Only relevant to fields. Indicates how a message-valued field should be encoded.
+            </summary>
+        </member>
+        <member name="M:Google.Protobuf.Reflection.FeatureSetDescriptor.MergedWith(Google.Protobuf.Reflection.FeatureSet)">
+            <summary>
+            Returns a new descriptor based on this one, with the specified overrides.
+            Multiple calls to this method that produce equivalent feature sets will return
+            the same instance.
+            </summary>
+            <param name="overrides">The proto representation of the "child" feature set to merge with this
+            one. May be null, in which case this descriptor is returned.</param>
+            <returns>A descriptor based on the current one, with the given set of overrides.</returns>
+        </member>
         <member name="T:Google.Protobuf.Reflection.FieldAccessorBase">
             <summary>
             Base class for field accessors.
@@ -7176,6 +7388,20 @@
         <member name="P:Google.Protobuf.Reflection.FieldDescriptor.Extension">
             <summary>
             An extension identifier for this field, or <c>null</c> if this field isn't an extension.
+            </summary>
+        </member>
+        <member name="M:Google.Protobuf.Reflection.FieldDescriptor.GetDirectParentFeatures(Google.Protobuf.Reflection.FieldDescriptorProto,Google.Protobuf.Reflection.FileDescriptor,Google.Protobuf.Reflection.MessageDescriptor)">
+            <summary>
+            Returns the features from the direct parent:
+            - The file for top-level extensions
+            - The oneof for one-of fields
+            - Otherwise the message
+            </summary>
+        </member>
+        <member name="M:Google.Protobuf.Reflection.FieldDescriptor.InferFeatures(Google.Protobuf.Reflection.FileDescriptor,Google.Protobuf.Reflection.FieldDescriptorProto)">
+            <summary>
+            Returns a feature set with inferred features for the given field, or null if no features
+            need to be inferred.
             </summary>
         </member>
         <member name="P:Google.Protobuf.Reflection.FieldDescriptor.Name">
@@ -7409,6 +7635,11 @@
             Proto3 syntax
             </summary>
         </member>
+        <member name="F:Google.Protobuf.Reflection.Syntax.Editions">
+            <summary>
+            Editions syntax
+            </summary>
+        </member>
         <member name="F:Google.Protobuf.Reflection.Syntax.Unknown">
             <summary>
             An unknown declared syntax
@@ -7445,9 +7676,19 @@
             </summary>
             <returns>A protobuf representation of this file descriptor.</returns>
         </member>
+        <member name="P:Google.Protobuf.Reflection.FileDescriptor.Features">
+            <summary>
+            The feature set for this file, including inherited features.
+            </summary>
+        </member>
+        <member name="P:Google.Protobuf.Reflection.FileDescriptor.Edition">
+            <summary>
+            Returns the edition of the file descriptor.
+            </summary>
+        </member>
         <member name="P:Google.Protobuf.Reflection.FileDescriptor.Syntax">
             <summary>
-            The syntax of the file
+            The syntax of the file.
             </summary>
         </member>
         <member name="P:Google.Protobuf.Reflection.FileDescriptor.Name">

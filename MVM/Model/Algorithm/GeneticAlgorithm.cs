@@ -30,6 +30,7 @@ public class GeneticAlgorithm
         {
             if (MainProgram.CROSSOVER_RATE > rand.NextDouble())
             {
+                //note: I can add more than 2 parents
                 scheduleParent1 = SelectTournamentPopulation(population).Schedules.GetAt(0);
                 scheduleParent2 = SelectTournamentPopulation(population).Schedules.GetAt(0);
                 crossoverPopulation.Schedules.SetAt(CrossoverSchedule(scheduleParent1, scheduleParent2), x);
@@ -88,7 +89,7 @@ public class GeneticAlgorithm
         Population tournamentPopulation = new Population(MainProgram.TOURNAMENT_SELECTION_SIZE, rand);
         for (int x = 0; x < MainProgram.TOURNAMENT_SELECTION_SIZE; x++)
         {
-            int randomIndex = rand.Next(population.Schedules.Size); //choses random schedule from best top 3 in population(because is is sorted)**
+            int randomIndex = rand.Next(population.Schedules.Size); //choses random schedule from best top 3 in population(because is is sorted)
             tournamentPopulation.Schedules.SetAt(population.Schedules.GetAt(randomIndex), x);
         }
         return tournamentPopulation;
