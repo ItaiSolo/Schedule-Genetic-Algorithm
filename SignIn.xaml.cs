@@ -4,7 +4,6 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Interop;
 using System.Windows.Navigation;
 
 namespace WpfApp
@@ -171,6 +170,7 @@ namespace WpfApp
         //loads the schedule from the database into the UI if found the schedule ID per that user
         private bool LoadSchedule(int currentScheduleId)
         {
+            MainProgram.SetDataChanged();
             var query = @"
                 SELECT scheduleData,scheduleResult,dateCreated FROM TempInfo
                 WHERE userInsertionNum = @userInsertionNum and createdByUserId = @UserId;";
@@ -186,7 +186,7 @@ namespace WpfApp
                     {
                         string jsonData = reader.GetString("scheduleData");
                         Data data = JsonConvert.DeserializeObject<Data>(jsonData);
-                        MainWindow.CreateWindow.UpdateDataSQL(data);
+                        MainWindow.showData.UpdateData(MainProgram.data);
                         string jsonResultData = reader.GetString("scheduleResult");
                         MyList<ScheduleResult> result = JsonConvert.DeserializeObject<MyList<ScheduleResult>>(jsonResultData);
                         DateTime? dateCreated = reader.IsDBNull(reader.GetOrdinal("dateCreated")) ? null : (DateTime?)reader.GetDateTime("dateCreated");
@@ -228,7 +228,6 @@ namespace WpfApp
 
             }
             MessageBox.Show("Schedule saved successfully. Your schedule ID is " + userInsertionNum + " for UserName: " + UserName, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-
         }
 
         private void InfoClicked(object sender, RoutedEventArgs e)

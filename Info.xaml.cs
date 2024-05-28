@@ -99,6 +99,7 @@ namespace WpfApp
         //Deletes a row from the DataGrid in the UI - Info and the corresponding data from the Data class
         private void DeleteCourse(object sender, RoutedEventArgs e)
         {
+            MainProgram.SetDataChanged();
             var button = sender as Button;
             var item = button.DataContext;
             MainProgram.data.Courses1.Delete(item as Courses);
@@ -107,6 +108,7 @@ namespace WpfApp
 
         private void DeleteRoom(object sender, RoutedEventArgs e)
         {
+            MainProgram.SetDataChanged();
             var button = sender as Button;
             var item = button.DataContext;
             MainProgram.data.Rooms.Delete(item as Classrooms);
@@ -116,6 +118,7 @@ namespace WpfApp
         //Deletes a row from the DataGrid in the UI - Info and the corresponding data from the Data class and all of its references in the Courses that use it
         private void DeleteInstructor(object sender, RoutedEventArgs e)
         {
+            MainProgram.SetDataChanged();
             var button = sender as Button;
             var item = button.DataContext;
             MainProgram.data.Instructors.Delete(item as Teachers);
@@ -124,6 +127,7 @@ namespace WpfApp
         //Deletes a row from the DataGrid in the UI - Info and the corresponding data from the Data class and all of its references in the Instructors that use it
         private void DeleteMeetingTime(object sender, RoutedEventArgs e)
         {
+            ;
             var button = sender as Button;
             var item = button.DataContext;
             MainProgram.data.MeetingTimes.Delete(item as DateRange);
@@ -133,6 +137,7 @@ namespace WpfApp
         //not a good way to do this, but it works :)
         private void DeleteInstructorPerCourse(object sender, RoutedEventArgs e)
         {
+            MainProgram.SetDataChanged();
             var button = sender as Button;
             var item = button.DataContext;
             var fullString = item.ToString().Split('\n');
@@ -159,6 +164,7 @@ namespace WpfApp
         //not a good/efficient way to do this, but it works ;)
         private void DeleteHoursPerTeacher(object sender, RoutedEventArgs e)
         {
+            MainProgram.SetDataChanged();
             var button = sender as Button;
             var item = button.DataContext;
             var fullString = item.ToString().Split('\n');

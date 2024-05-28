@@ -16,7 +16,7 @@ namespace WpfApp
         static int CourseId = 1;
         bool isDayOfTheWeek = false;
         int MinValue = 0;
-        readonly int MaxValueLimit = 500;
+        readonly int MaxValueLimit = 5000;
         int MaxValue = 500;
         bool SubmitTeacher = false; //if false then it will submit the MeetingTimes
 
@@ -60,9 +60,9 @@ namespace WpfApp
         private void IncreaseSeats_Click(object sender, RoutedEventArgs e)
         {
             int currentValue = int.TryParse(seatsInput.Text, out int value) ? value : 0;
-            MaxValue = isDayOfTheWeek ? 7 : MaxValueLimit;
-
-            if (currentValue < MaxValue)
+            MaxValue = isDayOfTheWeek ? 7 : MaxValueLimit;//if it is day of the week then the max value is 7 = Saturday
+            MinValue = isDayOfTheWeek ? 1 : 0;//if it is day of the week then the min value is 1 = Sunday
+            if (currentValue < MaxValue && currentValue > MinValue)
             {
                 seatsInput.Text = (currentValue + 1).ToString();
                 if (isDayOfTheWeek)
@@ -70,27 +70,30 @@ namespace WpfApp
                     UpdateDayLabel(currentValue + 1);
                 }
             }
+            else seatsInput.Text = (MinValue).ToString();
         }
 
         private void DecreaseSeats_Click(object sender, RoutedEventArgs e)
         {
             int currentValue = int.TryParse(seatsInput.Text, out int value) ? value : 0;
-            MinValue = isDayOfTheWeek ? 1 : 0;
-
-            if (currentValue > MinValue)
+            MinValue = isDayOfTheWeek ? 1 : 0;//if it is day of the week then the min value is 1 = Sunday
+            MaxValue = isDayOfTheWeek ? 7 : MaxValueLimit;//if it is day of the week then the max value is 7 = Saturday
+            if (currentValue > MinValue && currentValue < MaxValue)
             {
-                seatsInput.Text = (currentValue - 1).ToString();
+                seatsInput.Text = (currentValue - 1).ToString(); //Updates the number
                 if (isDayOfTheWeek)
                 {
                     UpdateDayLabel(currentValue - 1);
                 }
             }
+            else seatsInput.Text = (MinValue).ToString();
         }
 
         // Reset the fields and move the data to Data class in its valid. 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MainProgram.SetDataChanged();// every time you click submit even if it is not valid
+            //case: 0 = classrooms, 1 = MeetingTimes, 2 = Teachers, 3 = Courses
             // Example: Fetch and use the input data from TextBoxes
             int seats;
             isDayOfTheWeek = false;
@@ -133,7 +136,7 @@ namespace WpfApp
 
 
                         //add insertion 
-                        if(checkDuplicateTimes(range1Start, range1End))
+                        if(CheckDuplicateTimes(range1Start, range1End))
                         {
                             MainProgram.data.MeetingTimes.Add(new DateRange(range1Start, range1End, 1));
 
@@ -147,7 +150,7 @@ namespace WpfApp
                     break;
 
                 case 2:
-                    //Teachers insertion
+                    // Teachers insertion
                     // adds the meeting time per teacher
                     ShowSelectionBox();
 
@@ -180,7 +183,7 @@ namespace WpfApp
             stringInput1.Text = "";
         }
 
-        private bool checkDuplicateTimes(DateTime range1Start, DateTime range1End)
+        private bool CheckDuplicateTimes(DateTime range1Start, DateTime range1End)
         {
             foreach (var item in MainProgram.data.MeetingTimes)
             {
@@ -189,6 +192,7 @@ namespace WpfApp
             return true;
         }
 
+        //case: 1 = MeetingTimes, 2 = teachers, 3 = courses 4 = Create Schedule
         private void Next_Click(object sender, RoutedEventArgs e) // move to next input
         {
             dayLabel.Visibility = Visibility.Hidden;
@@ -242,6 +246,7 @@ namespace WpfApp
         }
 
         //return to previous page
+        //case: 1 = Classrooms, 2 = MeetingTimes, 3 = Teachers, 4 = Courses
         private void Previous_Click(object sender, RoutedEventArgs e)
         {
             dayLabel.Visibility = Visibility.Hidden;
@@ -432,12 +437,7 @@ namespace WpfApp
             }
         }
 
-        // update display data in Info Page and Data class
-        public void UpdateDataSQL(Data newData)
-        {
-            MainProgram.data = newData;
-            MainWindow.showData.UpdateData(MainProgram.data);
-        }
+       
 
         private void InfoClicked(object sender, RoutedEventArgs e)
         {

@@ -36,6 +36,11 @@ public class Population
         return this;
     }
 
+    public Population Copy()
+    {
+        return new Population(Schedules.Copy());
+    }
+
     //comparator for sorting
     private class ScheduleFitnessComparer : IComparer<Schedules>
     {
