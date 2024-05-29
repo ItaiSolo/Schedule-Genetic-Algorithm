@@ -127,7 +127,7 @@ namespace WpfApp
         //Deletes a row from the DataGrid in the UI - Info and the corresponding data from the Data class and all of its references in the Instructors that use it
         private void DeleteMeetingTime(object sender, RoutedEventArgs e)
         {
-            ;
+            MainProgram.SetDataChanged();
             var button = sender as Button;
             var item = button.DataContext;
             MainProgram.data.MeetingTimes.Delete(item as DateRange);
