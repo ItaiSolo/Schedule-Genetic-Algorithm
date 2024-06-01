@@ -12,15 +12,9 @@ namespace WpfApp
 
     public partial class Info : Page
     {
-        private ICollectionView view1 = null;
-        private ICollectionView view2 = null;
-        private ICollectionView view3 = null;
-        private ICollectionView view4 = null;
-        private ICollectionView view5 = null;
-        private ICollectionView view6 = null;
+        private ICollectionView view1, view2, view3, view4, view5, view6 = null;
         public ObservableCollection<string> InstructorsPerCourseString { get; set; }
         public ObservableCollection<string> HoursPerTeacherString { get; set; }
-
 
         public Info()
         {
@@ -66,6 +60,7 @@ namespace WpfApp
             view6.Refresh();
         }
 
+        //not a good way to do this, but it works :)
         private void InsertHoursPerTeacher(Data data)
         {
             foreach (var Course in data.Courses1)

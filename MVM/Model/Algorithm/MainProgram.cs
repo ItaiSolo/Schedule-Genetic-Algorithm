@@ -2,14 +2,13 @@
 
 public class MainProgram
 {
-    //
     //initialize constraints/ constants
-    public const int POPULATION_SIZE = 180;
+    public const int POPULATION_SIZE = 250;
     public const double MUTATION_RATE = 0.2;
     public const double CROSSOVER_RATE = 0.9;
-    public const int TOURNAMENT_SELECTION_SIZE = 3;
-    public const int NUM_OF_ELITE_SCHEDULES = 2;
-    public const int MaxIterations = 3000;
+    public const int TOURNAMENT_SELECTION_SIZE = 4;
+    public const int NUM_OF_ELITE_SCHEDULES = 5;
+    public const int MaxIterations = 8000;
     public const double BestFitness = 1;
     public const int BestConflicts = 0;
     public Random mainRand; //do not make it static it makes the algorithm worse
@@ -23,7 +22,6 @@ public class MainProgram
     public MyList<ScheduleResult> MainRun()
     {
         mainRand = new Random();
-
         MyList<ScheduleResult> scheduleResultList = new MyList<ScheduleResult>();
 
         int generationNumber = 0;
@@ -33,13 +31,13 @@ public class MainProgram
         population = new Population(POPULATION_SIZE, mainRand);// Initialize population with random schedules
         population.SortSchedulesByFitness();
         if (!hasDataChanged && savedPopulation != null)
-        { // takes the TOURNAMENT_SELECTION_SIZE best schedules from the last run to replace the worst schedules in this run
-            for (int i = 0; i < TOURNAMENT_SELECTION_SIZE; i++)
+        { // takes the 2 best schedules from the last run to replace the worst schedules in this run
+            for (int i = 0; i < 2; i++)
             {
                 population.Schedules.SetAt(savedPopulation.Schedules.GetAt(i), population.Schedules.Size - i - 1);
             }
         }
-        //else
+        population.SortSchedulesByFitness();
         classNum = 1;
         if (population.Schedules.GetAt(0) == null) return null;
 
@@ -49,7 +47,7 @@ public class MainProgram
 
         while (currentBestFitness != BestFitness && generationNumber < MaxIterations - 1 && currentBestConflicts > BestConflicts)
         {
-            population = geneticAlgorithm.EvolvePopulation(population);
+            population = geneticAlgorithm.EvolvePopulation(population); // Evolve sorted population
             population.SortSchedulesByFitness(); // Sort only after evolution
 
             currentBestFitness = population.Schedules.GetAt(0).Fitness;
@@ -80,7 +78,7 @@ public class MainProgram
                 currentBestConflicts
             ));
         }
-        savedPopulation = population.Copy();
+        savedPopulation = new Population(population.Schedules);
         scheduleResultList.GetAt(0).SetErrors(population.Schedules.GetAt(0).ConflictsList.Copy());
         hasDataChanged = false;
         return scheduleResultList;

@@ -6,10 +6,10 @@
  */
 public class GeneticAlgorithm
 {
-    readonly Random rand;
-    Schedules scheduleParent1;
-    Schedules scheduleParent2;
-    MyList<Schedules> TempSchedules;
+    private readonly Random rand;
+    private Schedules scheduleParent1;
+    private Schedules scheduleParent2;
+    private MyList<Schedules> TempSchedules;
     public GeneticAlgorithm(Random mainRand)
     {
         rand = mainRand;
@@ -26,7 +26,7 @@ public class GeneticAlgorithm
     {
         Population crossoverPopulation = new Population(population.Schedules);
 
-        for (int x = MainProgram.NUM_OF_ELITE_SCHEDULES; x < population.Schedules.Size; x++)
+        for (int x = MainProgram.NUM_OF_ELITE_SCHEDULES; x < population.Schedules.Size; x++) // it does not change the best schedules - "NUM_OF_ELITE_SCHEDULES"
         {
             if (MainProgram.CROSSOVER_RATE > rand.NextDouble())
             {
@@ -55,19 +55,18 @@ public class GeneticAlgorithm
     public Population MutatePopulation(Population population)
     {
         Population mutatePopulation = new Population(population.Schedules);
-        TempSchedules = mutatePopulation.Schedules;
-        for (int x = 0; x < MainProgram.NUM_OF_ELITE_SCHEDULES; x++)
+        TempSchedules = mutatePopulation.Schedules;// TempSchedules points to mutatePopulation.Schedules just to make it easier to read
+        for (int x = 0; x < MainProgram.NUM_OF_ELITE_SCHEDULES; x++)// it does not change the best schedules - "NUM_OF_ELITE_SCHEDULES"
         {
             TempSchedules.SetAt(population.Schedules.GetAt(x), x);
         }
-        for (int x = MainProgram.NUM_OF_ELITE_SCHEDULES; x < population.Schedules.Size; x++)
+        for (int x = MainProgram.NUM_OF_ELITE_SCHEDULES; x < population.Schedules.Size; x++) // it mutates the other schedules by the mutation rate
         {
             TempSchedules.SetAt(MutateSchedule(population.Schedules.GetAt(x)), x);
         }
         return mutatePopulation;
     }
 
-    //need to be refactored and made more efficient
     //Mutate on Schedules -> Randomly change one of the classes
     public Schedules MutateSchedule(Schedules schedule)
     {
@@ -83,7 +82,7 @@ public class GeneticAlgorithm
         return mutateSchedule;
     }
 
-    //Select Tournament Population -> Randomly select schedules from the population**
+    //Select Tournament Population -> Randomly select schedules from the top of the population
     public Population SelectTournamentPopulation(Population population)
     {
         Population tournamentPopulation = new Population(MainProgram.TOURNAMENT_SELECTION_SIZE, rand);

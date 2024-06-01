@@ -17,7 +17,7 @@ public class Population
         }
     }
 
-    //init the population with input schedules/population
+    //init the population with input schedules/population (copy constructor)
     public Population(MyList<Schedules> InputSchedules)
     {
         Schedules = InputSchedules.Copy();
@@ -34,11 +34,6 @@ public class Population
     {
         Schedules.Sort(new ScheduleFitnessComparerLast());
         return this;
-    }
-
-    public Population Copy()
-    {
-        return new Population(Schedules.Copy());
     }
 
     //comparator for sorting
